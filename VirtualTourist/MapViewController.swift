@@ -19,21 +19,44 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func longPress(gestureRecognizer:UILongPressGestureRecognizer){
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoordinates
+        mapView.addAnnotation(annotation)
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func createAnnotation() {
+        // maybe create array of annotations
+        var annotation = MKPointAnnotation.self
+        
+        // create var for  long/long
+        
+        // Maybe create array of annotations that get added together
+        
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // This changes changes the view of the pin and mediaURL
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
     }
-    */
 
 }
