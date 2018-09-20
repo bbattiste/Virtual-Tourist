@@ -20,14 +20,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func longPress(gestureRecognizer:UILongPressGestureRecognizer){
+    @IBAction func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
         mapView.addAnnotation(annotation)
     }
+    
+//    @IBAction func tapAction(gestureRecognizer: UITapGestureRecognizer) {
+//        print(tapAction)
+//    }
 
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("tapAction did happen *****")
+        
+        // center map around point
+        
+        // move to photoView
+        
+    }
+    
     func createAnnotation() {
         // maybe create array of annotations
         var annotation = MKPointAnnotation.self
