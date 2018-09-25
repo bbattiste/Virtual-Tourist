@@ -16,20 +16,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.ended {
             print("***long press!!!")
+            let touchPoint = gesture.location(in: mapView)
+            let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+
+            let pin = PinObject(coordinate: newCoordinate)
+
+            pin.coordinate = newCoordinate
+            self.mapView.addAnnotation(pin)
         }
-        
-//        let touchPoint = UILongPressGestureRecognizer.location(in: mapView)
-//        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = newCoordinates
-//        @object pinObject = mapView.addAnnotation(annotation)
     }
     
 //    @IBAction func tapAction(gestureRecognizer: UITapGestureRecognizer) {
@@ -65,9 +64,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
+            pinView!.canShowCallout = false
             pinView!.pinTintColor = .red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {
             pinView!.annotation = annotation
