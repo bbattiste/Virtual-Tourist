@@ -20,12 +20,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let touchPoint = gestureRecognizer.location(in: mapView)
-        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoordinates
-        mapView.addAnnotation(annotation)
+    @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == UIGestureRecognizerState.ended {
+            print("***long press!!!")
+        }
+        
+//        let touchPoint = UILongPressGestureRecognizer.location(in: mapView)
+//        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = newCoordinates
+//        @object pinObject = mapView.addAnnotation(annotation)
     }
     
 //    @IBAction func tapAction(gestureRecognizer: UITapGestureRecognizer) {

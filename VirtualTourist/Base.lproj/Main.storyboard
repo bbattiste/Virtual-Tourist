@@ -52,7 +52,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="PrJ-lL-a86">
                     <connections>
-                        <action selector="longPressWithGestureRecognizer:" destination="BYZ-38-t0r" id="sR9-cM-qSt"/>
+                        <action selector="longPressWithGesture:" destination="BYZ-38-t0r" id="8ba-nR-7b2"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
