@@ -31,11 +31,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-//    @IBAction func tapAction(gestureRecognizer: UITapGestureRecognizer) {
-//        print(tapAction)
-//    }
-
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         print("tapAction did happen *****")
         
         // center map around point
