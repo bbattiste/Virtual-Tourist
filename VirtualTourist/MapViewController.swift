@@ -29,25 +29,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pin.coordinate = newCoordinate
             self.mapView.addAnnotation(pin)
         }
+        
+        // maybe create array of annotations
     }
     
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         print("tapAction did happen *****")
         
-        // center map around point
+        // Create a instance of Destination AddPinViewController
+        let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
-        // move to photoView
+        // Pass the created instance to current navigation stack
+        present(goToPhotoViewController, animated: true, completion: nil)
         
-    }
-    
-    func createAnnotation() {
-        // maybe create array of annotations
-        var annotation = MKPointAnnotation.self
-        
-        // create var for  long/long
-        
-        // Maybe create array of annotations that get added together
-        
+        // center map around point when exiting view
         
     }
     

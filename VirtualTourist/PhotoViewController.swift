@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import MapKit
 
-class PhotoViewController: UIViewController {
+class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
