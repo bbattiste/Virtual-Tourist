@@ -36,7 +36,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         print("tapAction did happen *****")
         
-        // Create a instance of Destination AddPinViewController
+        // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
         // Pass the created instance to current navigation stack

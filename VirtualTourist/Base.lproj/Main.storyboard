@@ -56,20 +56,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="117.39130434782609"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="PLZ-Ic-FfX">
-            <objects>
-                <navigationController id="3Jx-pA-Itv" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5zb-eo-K2E">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6je-WQ-XBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="858" y="117"/>
+            <point key="canvasLocation" x="766" y="116"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="0fV-op-Z4s">
@@ -118,6 +105,9 @@
                                     <navigationItem id="MPs-8A-zTp">
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="Wco-MD-gic">
                                             <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="cancel:" destination="JS1-ik-Dby" id="CH3-zH-QIF"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -144,6 +134,7 @@
                         <viewLayoutGuide key="safeArea" id="81I-Ok-dqV"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                     </connections>
                 </viewController>
