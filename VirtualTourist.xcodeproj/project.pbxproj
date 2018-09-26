@@ -14,6 +14,7 @@
 		1328F866214AF47B00CF327F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F865214AF47B00CF327F /* MapViewController.swift */; };
 		1328F86A214B022E00CF327F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F869214B022E00CF327F /* PhotoViewController.swift */; };
 		133862412159EFF700E9DC18 /* PinObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133862402159EFF700E9DC18 /* PinObject.swift */; };
+		13386243215B2D1400E9DC18 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13386242215B2D1400E9DC18 /* GlobalVariables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1328F865214AF47B00CF327F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		1328F869214B022E00CF327F /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		133862402159EFF700E9DC18 /* PinObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinObject.swift; sourceTree = "<group>"; };
+		13386242215B2D1400E9DC18 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				1328F853214ADF7E00CF327F /* AppDelegate.swift */,
+				13386242215B2D1400E9DC18 /* GlobalVariables.swift */,
 				133862402159EFF700E9DC18 /* PinObject.swift */,
 				1328F865214AF47B00CF327F /* MapViewController.swift */,
 				1328F869214B022E00CF327F /* PhotoViewController.swift */,
@@ -145,6 +148,7 @@
 				1328F866214AF47B00CF327F /* MapViewController.swift in Sources */,
 				1328F854214ADF7E00CF327F /* AppDelegate.swift in Sources */,
 				1328F86A214B022E00CF327F /* PhotoViewController.swift in Sources */,
+				13386243215B2D1400E9DC18 /* GlobalVariables.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

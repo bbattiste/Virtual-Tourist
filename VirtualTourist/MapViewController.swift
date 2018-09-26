@@ -36,6 +36,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         print("tapAction did happen *****")
         
+        // Grab coordinates of pin tapped
+        
+        
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         

@@ -15,10 +15,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
-    
+    // MARK: Vars/Lets
+    let pinLocation = GlobalVariables.LocationCoordinate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        centerMapOnLocation(location: pinLocation)
         
         // Do any additional setup after loading the view.
     }
@@ -28,18 +30,16 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    // Configure zoom on pinLocation
+    func centerMapOnLocation(location: CLLocationCoordinate2D) {
+        let regionRadius: CLLocationDistance = 2000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location,
+                                                                  regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
