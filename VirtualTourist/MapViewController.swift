@@ -16,11 +16,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // center map around point when exiting view
+        
     }
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.ended {
-            print("***long press!!!")
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
 
@@ -34,19 +35,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
-        print("tapAction did happen *****")
         
         // Grab coordinates of pin tapped
-        
+        GlobalVariables.LocationCoordinate = didSelect.annotation!.coordinate
         
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
         // Pass the created instance to current navigation stack
         present(goToPhotoViewController, animated: true, completion: nil)
-        
-        // center map around point when exiting view
-        
     }
     
     // This changes changes the view of the pin and mediaURL
