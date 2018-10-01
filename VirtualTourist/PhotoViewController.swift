@@ -22,8 +22,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         centerMapOnLocation(location: pinLocation, map: mapView, size: 50000)
         createAnnotation()
-        
-        // Do any additional setup after loading the view.
     }
 
     func createAnnotation() {

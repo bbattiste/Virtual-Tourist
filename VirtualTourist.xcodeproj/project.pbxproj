@@ -16,6 +16,7 @@
 		133862412159EFF700E9DC18 /* PinObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133862402159EFF700E9DC18 /* PinObject.swift */; };
 		13386243215B2D1400E9DC18 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13386242215B2D1400E9DC18 /* GlobalVariables.swift */; };
 		13538FAA21629A06008F9C3B /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13538FA921629A06008F9C3B /* GlobalFunctions.swift */; };
+		13538FAC2162B55B008F9C3B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13538FAB2162B55B008F9C3B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		133862402159EFF700E9DC18 /* PinObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinObject.swift; sourceTree = "<group>"; };
 		13386242215B2D1400E9DC18 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		13538FA921629A06008F9C3B /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		13538FAB2162B55B008F9C3B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				1328F853214ADF7E00CF327F /* AppDelegate.swift */,
+				13538FAB2162B55B008F9C3B /* Constants.swift */,
 				13386242215B2D1400E9DC18 /* GlobalVariables.swift */,
 				13538FA921629A06008F9C3B /* GlobalFunctions.swift */,
 				133862402159EFF700E9DC18 /* PinObject.swift */,
@@ -151,6 +154,7 @@
 				1328F866214AF47B00CF327F /* MapViewController.swift in Sources */,
 				13538FAA21629A06008F9C3B /* GlobalFunctions.swift in Sources */,
 				1328F854214ADF7E00CF327F /* AppDelegate.swift in Sources */,
+				13538FAC2162B55B008F9C3B /* Constants.swift in Sources */,
 				1328F86A214B022E00CF327F /* PhotoViewController.swift in Sources */,
 				13386243215B2D1400E9DC18 /* GlobalVariables.swift in Sources */,
 			);
