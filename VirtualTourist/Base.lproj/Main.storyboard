@@ -106,7 +106,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="Wco-MD-gic">
                                             <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
                                             <connections>
-                                                <action selector="cancel:" destination="JS1-ik-Dby" id="CH3-zH-QIF"/>
+                                                <segue destination="BYZ-38-t0r" kind="show" id="ewm-yq-Wjv"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

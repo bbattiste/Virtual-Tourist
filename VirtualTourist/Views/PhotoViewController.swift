@@ -29,9 +29,5 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         pin.coordinate = pinLocation
         self.mapView.addAnnotation(pin)
     }
-    
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
 
 }
