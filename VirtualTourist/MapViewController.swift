@@ -19,7 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerMapOnLocation(location: pinLocation, region: mapView)
+        centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
         
         // Do any additional setup after loading the view.
     }

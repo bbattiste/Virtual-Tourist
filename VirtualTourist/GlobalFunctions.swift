@@ -10,9 +10,10 @@ import Foundation
 import MapKit
 
 // Configure zoom on pinLocation
-func centerMapOnLocation(location: CLLocationCoordinate2D, region: MKMapView) {
-    let regionRadius: CLLocationDistance = 2250000
+func centerMapOnLocation(location: CLLocationCoordinate2D, map: MKMapView, size: Double) {
+    let regionRadius: CLLocationDistance = size
     let coordinateRegion = MKCoordinateRegionMakeWithDistance(location,
                                                               regionRadius * 2.0, regionRadius * 2.0)
-    region.setRegion(coordinateRegion, animated: true)
+    map.setRegion(coordinateRegion, animated: true)
 }
+

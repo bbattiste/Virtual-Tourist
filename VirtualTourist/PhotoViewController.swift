@@ -20,14 +20,16 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerMapOnLocation(location: pinLocation, region: mapView)
+        centerMapOnLocation(location: pinLocation, map: mapView, size: 50000)
+        createAnnotation()
         
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func createAnnotation() {
+        let pin = PinObject(coordinate: pinLocation)
+        pin.coordinate = pinLocation
+        self.mapView.addAnnotation(pin)
     }
     
     @IBAction func cancel(_ sender: Any) {
