@@ -20,7 +20,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerMapOnLocation(location: pinLocation)
+        centerMapOnLocation(location: pinLocation, region: mapView)
         
         // Do any additional setup after loading the view.
     }
@@ -28,14 +28,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    // Configure zoom on pinLocation
-    func centerMapOnLocation(location: CLLocationCoordinate2D) {
-        let regionRadius: CLLocationDistance = 2000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     @IBAction func cancel(_ sender: Any) {

@@ -14,10 +14,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    // MARK: Vars/Lets
+    let pinLocation = GlobalVariables.LocationCoordinate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // center map around point when exiting view
+        centerMapOnLocation(location: pinLocation, region: mapView)
         
+        // Do any additional setup after loading the view.
     }
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
