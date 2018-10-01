@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
-        if gesture.state == UIGestureRecognizerState.ended {
+        if gesture.state == UIGestureRecognizerState.began {
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
 

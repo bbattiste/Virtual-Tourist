@@ -69,14 +69,22 @@
 				13386242215B2D1400E9DC18 /* GlobalVariables.swift */,
 				13538FA921629A06008F9C3B /* GlobalFunctions.swift */,
 				133862402159EFF700E9DC18 /* PinObject.swift */,
-				1328F865214AF47B00CF327F /* MapViewController.swift */,
-				1328F869214B022E00CF327F /* PhotoViewController.swift */,
+				13538FAE2162BCA5008F9C3B /* Views */,
 				1328F857214ADF7E00CF327F /* Main.storyboard */,
 				1328F85A214ADF8900CF327F /* Assets.xcassets */,
 				1328F85C214ADF8900CF327F /* LaunchScreen.storyboard */,
 				1328F85F214ADF8900CF327F /* Info.plist */,
 			);
 			path = VirtualTourist;
+			sourceTree = "<group>";
+		};
+		13538FAE2162BCA5008F9C3B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1328F865214AF47B00CF327F /* MapViewController.swift */,
+				1328F869214B022E00CF327F /* PhotoViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
