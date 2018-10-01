@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				1328F853214ADF7E00CF327F /* AppDelegate.swift */,
-				13538FAB2162B55B008F9C3B /* Constants.swift */,
+				13538FAF2162BE55008F9C3B /* Client Network */,
 				13386242215B2D1400E9DC18 /* GlobalVariables.swift */,
 				13538FA921629A06008F9C3B /* GlobalFunctions.swift */,
 				133862402159EFF700E9DC18 /* PinObject.swift */,
@@ -85,6 +85,14 @@
 				1328F869214B022E00CF327F /* PhotoViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		13538FAF2162BE55008F9C3B /* Client Network */ = {
+			isa = PBXGroup;
+			children = (
+				13538FAB2162B55B008F9C3B /* Constants.swift */,
+			);
+			path = "Client Network";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
