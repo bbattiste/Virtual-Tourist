@@ -227,43 +227,42 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                 displayError("Cannot find key '\(Constants.FlickrResponseKeys.Photo)' in \(photosDictionary)")
                 return
             }
-
+            
             if photosArray.count == 0 {
                 displayError("No Photos Found. Search Again.")
                 return
             } else {
-                    // TODO: while (pics available) and for (pics with not same index as already used pics) statements or find index number num w/ 21 pics after in a row:  as in total number of pics - 21, then pick random and use 21 consecutive pics
-
-                let randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
+                
+                var randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
                 print("randomPhotoIndex = \(randomPhotoIndex)")
-                if 21{
+                if randomPhotoIndex > 229 {
+                    randomPhotoIndex = (randomPhotoIndex - 21)
+                }
+                
+                // TODO: use 21 consecutive pics
+                var photoNumberIndex = 0
+                var photos = [UIImage]()
+                
+                while photoNumberIndex != 21 {
                     
+                    var photoDictionary = photosArray[randomPhotoIndex + photoNumberIndex] as [String: AnyObject]
+                    
+                    /* GUARD: Does our photo have a key for 'url_m'? */
+                    guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
+                        displayError("Cannot find key '\(Constants.FlickrResponseKeys.MediumURL)' in \(photoDictionary)")
+                        return
+                    }
+                    
+                    let imageURL = URL(string: imageUrlString)
+                    print("imageURL = \(String(describing: imageURL))")
+                    if let imageData = try? Data(contentsOf: imageURL!) {
+                        photos.append(UIImage(data: imageData)!)
+                    }
+                    photoNumberIndex += 1
                 }
-                let photoDictionary = photosArray[randomPhotoIndex] as [String: AnyObject]
-                let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
-
-                /* GUARD: Does our photo have a key for 'url_m'? */
-                guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
-                    displayError("Cannot find key '\(Constants.FlickrResponseKeys.MediumURL)' in \(photoDictionary)")
-                    return
-                }
-
-                //TODO: Do collection view instead of UIImage
-                // if an image exists at the url, set the image and title
-                let imageURL = URL(string: imageUrlString)
-                print("imageURL = \(String(describing: imageURL))")
-//                if let imageData = try? Data(contentsOf: imageURL!) {
-//                    performUIUpdatesOnMain {
-//                        self.setUIEnabled(true)
-//                        self.photoImageView.image = UIImage(data: imageData)
-//                        self.photoTitleLabel.text = photoTitle ?? "(Untitled)"
-//                    }
-//                } else {
-//                    displayError("Image does not exist at \(imageURL)")
-//                }
+                print("photos.count = \(photos.count)")
             }
         }
-
         // start the task!
         task.resume()
     }
