@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pin.coordinate = newCoordinate
             self.mapView.addAnnotation(pin)
         }
-        
+        // TODO: When pins are dropped on the map, are they persisted as Pin instances in Core Data?
         // maybe create array of annotations
     }
     
