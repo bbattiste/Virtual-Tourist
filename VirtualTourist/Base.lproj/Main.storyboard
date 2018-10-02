@@ -70,19 +70,33 @@
                                 <rect key="frame" x="0.0" y="258" width="375" height="346"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AtQ-0a-QBU">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="101" height="101"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iAc-tg-lQB">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iAc-tg-lQB" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A7N-kJ-sDI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="A7N-kJ-sDI" secondAttribute="bottom" id="Bm8-Eq-78J"/>
+                                            <constraint firstItem="A7N-kJ-sDI" firstAttribute="leading" secondItem="iAc-tg-lQB" secondAttribute="leading" id="LNf-GN-AoV"/>
+                                            <constraint firstItem="A7N-kJ-sDI" firstAttribute="top" secondItem="iAc-tg-lQB" secondAttribute="top" id="acg-o3-u95"/>
+                                            <constraint firstAttribute="trailing" secondItem="A7N-kJ-sDI" secondAttribute="trailing" id="twK-g9-soC"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="A7N-kJ-sDI" id="IAN-71-ENb"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -134,6 +148,7 @@
                         <viewLayoutGuide key="safeArea" id="81I-Ok-dqV"/>
                     </view>
                     <connections>
+                        <outlet property="FlowLayout" destination="AtQ-0a-QBU" id="o52-mI-6j2"/>
                         <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                     </connections>
