@@ -17,11 +17,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
     
+    
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
     
     // MARK: Vars/Lets
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
+    var photos = GlobalVariables.globalPhotosArray
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         createAnnotation()
         //TODO: if new location, download photos, otherwise displays assigned photos
         client.getPhotos()
+        print(photos)
     }
 
     func createAnnotation() {
@@ -36,36 +39,39 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         pin.coordinate = pinLocation
         self.mapView.addAnnotation(pin)
     }
+}
+
+extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    collectionView.delegate = self
+    collectionView.datasource = self
     
     // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        //TODO:  number of pics returned.count
-//        return 1
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-//        let photosInCell = self.photos[(indexPath as NSIndexPath).row]
-//
-//        // Set the image
-//        cell.villainImageView?.image = UIImage(named: villain.imageName)
-//        //cell.schemeLabel.text = "Scheme: \(villain.evilScheme)"
-//
-//        return cell
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
-    //  //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            //TODO:  number of pics returned.count
+            
+            return photos.count
+        }
     
-//        let detailController = self.storyboard!.instantiateViewController(withIdentifier: "VillainDetailViewController") as! VillainDetailViewController
-//        detailController.villain = self.allVillains[(indexPath as NSIndexPath).row]
-//        self.navigationController!.pushViewController(detailController, animated: true)
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
+            let photosInCell = self.photos[(indexPath as NSIndexPath).row]
+    
+            // Set the image
+            cell.imageView?.image = photosInCell
+    
+            return cell
+        }
+    
+//        override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
+//      //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
 //
-//    }
-}
-
-extension FlickrClient {
+//            let detailController = self.storyboard!.instantiateViewController(withIdentifier: "VillainDetailViewController") as! VillainDetailViewController
+//            detailController.villain = self.allVillains[(indexPath as NSIndexPath).row]
+//            self.navigationController!.pushViewController(detailController, animated: true)
+//
+//        }
     
 }

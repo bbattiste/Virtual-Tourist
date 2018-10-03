@@ -76,7 +76,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="iAc-tg-lQB" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="iAc-tg-lQB" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -99,6 +99,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="JS1-ik-Dby" id="70f-zJ-Prv"/>
+                                    <outlet property="delegate" destination="JS1-ik-Dby" id="bkb-Dg-rYd"/>
+                                </connections>
                             </collectionView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="H8d-0L-eJg">
                                 <rect key="frame" x="0.0" y="44" width="375" height="216"/>
@@ -148,7 +152,6 @@
                         <viewLayoutGuide key="safeArea" id="81I-Ok-dqV"/>
                     </view>
                     <connections>
-                        <outlet property="FlowLayout" destination="AtQ-0a-QBU" id="o52-mI-6j2"/>
                         <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                         <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
