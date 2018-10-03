@@ -14,7 +14,9 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var backButton: UIBarButtonItem!
-    @IBOutlet weak var FlowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var newCollectionButton: UIButton!
+    
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
     
     // MARK: Vars/Lets

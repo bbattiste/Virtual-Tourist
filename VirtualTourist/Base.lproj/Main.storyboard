@@ -111,7 +111,7 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaE-EO-vdQ">
                                 <rect key="frame" x="0.0" y="612" width="375" height="55"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="New Collection of Photos"/>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQk-BZ-Tdy">
                                 <rect key="frame" x="0.0" y="6" width="375" height="44"/>
@@ -151,6 +151,7 @@
                         <outlet property="FlowLayout" destination="AtQ-0a-QBU" id="o52-mI-6j2"/>
                         <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
+                        <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlS-XV-IHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
