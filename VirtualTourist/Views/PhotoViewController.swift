@@ -36,7 +36,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
             //TODO: if new location, download photos, otherwise displays assigned photos
             //self.client.getPhotos()
             print("test4")
-            print("photos = \(self.photos)")
+            print("photos begin view = \(self.photos)")
+            print("GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("photos end view = \(self.photos)")
+        print("GlobalVariables.globalPhotosArray end view= \(GlobalVariables.globalPhotosArray)")
     }
 
     func createAnnotation() {
@@ -52,14 +58,15 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             //TODO:  number of pics returned.count
-            
-            return photos.count
+            print("numberOfItemsInSection")
+            return GlobalVariables.globalPhotosArray.count
         }
     
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
+            
+            print("cellForItemAt")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-            let photosInCell = self.photos[(indexPath as NSIndexPath).row]
+            let photosInCell = GlobalVariables.globalPhotosArray[(indexPath as NSIndexPath).row]
     
             // Set the image
             cell.imageView?.image = photosInCell

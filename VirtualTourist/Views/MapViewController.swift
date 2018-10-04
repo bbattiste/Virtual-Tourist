@@ -41,12 +41,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // Grab coordinates of pin tapped
         GlobalVariables.LocationCoordinate = didSelect.annotation!.coordinate
-        client.getPhotos()
-        // Create a instance of Destination photoViewController
-        let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
-        
-        // Pass the created instance to current navigation stack
-        present(goToPhotoViewController, animated: true, completion: nil)
+        client.getPhotos() { (success, error) in
+            if success {
+                // Create a instance of Destination photoViewController
+                let goToPhotoViewController = self.storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
+                
+                // Pass the created instance to current navigation stack
+                self.present(goToPhotoViewController, animated: true, completion: nil)
+            } else {
+                print(error!)
+            }
+        }
     }
     
     // This changes changes the view of the pin and mediaURL

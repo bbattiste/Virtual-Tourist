@@ -14,7 +14,7 @@ class FlickrClient {
     let pinLocation = GlobalVariables.LocationCoordinate
     
     // MARK: Network to get photos from Flickr
-    func getPhotos() {
+    func getPhotos(completionHandler: @escaping (_ success: Bool, _ error: String?) -> Void) {
         let methodParameters = [
             Constants.FlickrParameterKeys.Method: Constants.FlickrParameterValues.SearchMethod,
             Constants.FlickrParameterKeys.APIKey: Constants.FlickrParameterValues.APIKey,
@@ -27,6 +27,7 @@ class FlickrClient {
         
 //        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
         displayImagesFromFlickr(methodParameters as [String:AnyObject])
+        completionHandler(true, nil)
 //            DispatchQueue.main.async(execute: { () -> Void in
 //                handler(img)
 //            }
@@ -240,9 +241,12 @@ class FlickrClient {
                 }
                 print("photos.count = \(photos.count)")
                 GlobalVariables.globalPhotosArray = photos
+                print("GlobalVariables.globalPhotosArray DURING TASK = \(GlobalVariables.globalPhotosArray)")
             }
+            print("GlobalVariables.globalPhotosArray AFTER TASK = \(GlobalVariables.globalPhotosArray)")
         }
         // start the task!
+        print("GlobalVariables.globalPhotosArray ?START? TASK = \(GlobalVariables.globalPhotosArray)")
         task.resume()
     }
     
