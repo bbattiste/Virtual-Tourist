@@ -16,6 +16,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: Vars/Lets
     let pinLocation = GlobalVariables.LocationCoordinate
+    let client = FlickrClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // Grab coordinates of pin tapped
         GlobalVariables.LocationCoordinate = didSelect.annotation!.coordinate
-        
+        client.getPhotos()
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         

@@ -16,6 +16,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
+    @IBOutlet weak var photoCollectionView: UICollectionView!
     
     
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
@@ -27,11 +28,15 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        centerMapOnLocation(location: pinLocation, map: mapView, size: 50000)
-        createAnnotation()
-        //TODO: if new location, download photos, otherwise displays assigned photos
-        client.getPhotos()
-        print(photos)
+            print("test1")
+            centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
+            print("test2")
+            self.createAnnotation()
+            print("test3")
+            //TODO: if new location, download photos, otherwise displays assigned photos
+            //self.client.getPhotos()
+            print("test4")
+            print("photos = \(self.photos)")
     }
 
     func createAnnotation() {
@@ -42,9 +47,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
 }
 
 extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    collectionView.delegate = self
-    collectionView.datasource = self
     
     // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible

@@ -155,6 +155,7 @@
                         <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                         <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
+                        <outlet property="photoCollectionView" destination="0bB-zE-Pjb" id="yD0-64-ANJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlS-XV-IHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

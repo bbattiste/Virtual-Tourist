@@ -24,9 +24,40 @@ class FlickrClient {
             Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat,
             Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback
         ]
+        
+//        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
         displayImagesFromFlickr(methodParameters as [String:AnyObject])
-        return
+//            DispatchQueue.main.async(execute: { () -> Void in
+//                handler(img)
+//            }
+//
+//            return
+//        }
     }
+    ////
+    // MARK: Download Big Image
+    
+    // This method downloads and image in the background once it's
+    // finished, it runs the closure it receives as a parameter.
+    // This closure is called a completion handler
+    // Go download the image, and once you're done, do _this_ (the completion handler)
+//    func withBigImage(completionHandler handler: @escaping (_ image: UIImage) -> Void){
+//
+//        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
+//
+//            // get the url
+//            // get the NSData
+//            // turn it into a UIImage
+//            if let url = URL(string: BigImages.whale.rawValue), let imgData = try? Data(contentsOf: url), let img = UIImage(data: imgData) {
+//                // run the completion block
+//                // always in the main queue, just in case!
+//                DispatchQueue.main.async(execute: { () -> Void in
+//                    handler(img)
+//                })
+//            }
+//        }
+//    }
+    ////
     
     private func bboxString() -> String {
         // ensure bbox is bounded by minimum and maximums, has max and mins if wanting to add enter in own coordinates feature
@@ -46,7 +77,6 @@ class FlickrClient {
         // create session and request
         let session = URLSession.shared
         let request = URLRequest(url: flickrURLFromParameters(methodParameters))
-        print(request)
         
         // create network request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -88,13 +118,11 @@ class FlickrClient {
                 displayError("Flickr API returned an error. See error code and message in \(parsedResult)")
                 return
             }
-            print("***parsedResult: \(parsedResult)")
             /* GUARD: Is "photos" key in our result? */
             guard let photosDictionary = parsedResult[Constants.FlickrResponseKeys.Photos] as? [String:AnyObject] else {
                 displayError("Cannot find keys '\(Constants.FlickrResponseKeys.Photos)' in \(parsedResult)")
                 return
             }
-            print("***photosDictionary: \(photosDictionary)")
             
             /* GUARD: Is "pages" key in the photosDictionary? */
             guard let totalPages = photosDictionary[Constants.FlickrResponseKeys.Pages] as? Int else {
@@ -204,13 +232,13 @@ class FlickrClient {
                     }
                     
                     let imageURL = URL(string: imageUrlString)
-                    //print("imageURL = \(String(describing: imageURL))")
+                    print("imageURL = \(String(describing: imageURL))")
                     if let imageData = try? Data(contentsOf: imageURL!) {
                         photos.append(UIImage(data: imageData)!)
                     }
                     photoNumberIndex += 1
                 }
-                //print("photos.count = \(photos.count)")
+                print("photos.count = \(photos.count)")
                 GlobalVariables.globalPhotosArray = photos
             }
         }
