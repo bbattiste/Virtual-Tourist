@@ -221,8 +221,9 @@ class FlickrClient {
                 // TODO: use 21 consecutive pics
                 var photoNumberIndex = 0
                 var photos = [UIImage]()
+                let numberOfPhotosToShow = min(photosArray.count, 21)
                 
-                while photoNumberIndex != 21 {
+                while photoNumberIndex != numberOfPhotosToShow {
                     
                     var photoDictionary = photosArray[randomPhotoIndex + photoNumberIndex] as [String: AnyObject]
                     
@@ -233,7 +234,7 @@ class FlickrClient {
                     }
                     
                     let imageURL = URL(string: imageUrlString)
-                    print("imageURL = \(String(describing: imageURL))")
+                    //print("imageURL = \(String(describing: imageURL))")
                     if let imageData = try? Data(contentsOf: imageURL!) {
                         photos.append(UIImage(data: imageData)!)
                     }
@@ -241,12 +242,12 @@ class FlickrClient {
                 }
                 print("photos.count = \(photos.count)")
                 GlobalVariables.globalPhotosArray = photos
-                print("GlobalVariables.globalPhotosArray DURING TASK = \(GlobalVariables.globalPhotosArray)")
+                print("GlobalVariables.globalPhotosArray DURING TASK")
             }
-            print("GlobalVariables.globalPhotosArray AFTER TASK = \(GlobalVariables.globalPhotosArray)")
+            print("GlobalVariables.globalPhotosArray AFTER TASK ")
         }
         // start the task!
-        print("GlobalVariables.globalPhotosArray ?START? TASK = \(GlobalVariables.globalPhotosArray)")
+        print("GlobalVariables.globalPhotosArray ?START? TASK ")
         task.resume()
     }
     

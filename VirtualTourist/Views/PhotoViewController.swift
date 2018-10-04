@@ -41,8 +41,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        print("photos end view = \(self.photos)")
-        print("GlobalVariables.globalPhotosArray end view= \(GlobalVariables.globalPhotosArray)")
+        print("photos end view = \(self.photos.count)")
+        print("GlobalVariables.globalPhotosArray end view= \(GlobalVariables.globalPhotosArray.count)")
     }
 
     func createAnnotation() {
@@ -58,7 +58,7 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             //TODO:  number of pics returned.count
-            print("numberOfItemsInSection")
+            print("numberOfItemsInSection = \(GlobalVariables.globalPhotosArray.count)")
             return GlobalVariables.globalPhotosArray.count
         }
     
