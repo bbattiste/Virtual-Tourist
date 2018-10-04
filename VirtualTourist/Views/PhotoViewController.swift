@@ -28,16 +28,25 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            print("test1")
-            centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
-            print("test2")
-            self.createAnnotation()
-            print("test3")
-            //TODO: if new location, download photos, otherwise displays assigned photos
-            //self.client.getPhotos()
-            print("test4")
-            print("photos begin view = \(self.photos)")
-            print("GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
+        print("test1")
+        centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
+        print("test2")
+        self.createAnnotation()
+        print("test3")
+        //TODO: if new location, download photos, otherwise displays assigned photos
+        //self.client.getPhotos()
+        client.getPhotos() { (success, error) in
+            if success {
+                self.photoCollectionView.reloadData()
+                print("test3.5")
+            } else {
+                print(error!)
+            }
+        }
+        print("test4")
+        self.photoCollectionView.reloadData()
+        print("test5 photos begin view = \(self.photos)")
+        print("test6 GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
     }
     
     override func viewDidDisappear(_ animated: Bool) {

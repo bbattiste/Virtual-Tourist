@@ -25,40 +25,10 @@ class FlickrClient {
             Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback
         ]
         
-//        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
+        print("test6")
         displayImagesFromFlickr(methodParameters as [String:AnyObject])
         completionHandler(true, nil)
-//            DispatchQueue.main.async(execute: { () -> Void in
-//                handler(img)
-//            }
-//
-//            return
-//        }
     }
-    ////
-    // MARK: Download Big Image
-    
-    // This method downloads and image in the background once it's
-    // finished, it runs the closure it receives as a parameter.
-    // This closure is called a completion handler
-    // Go download the image, and once you're done, do _this_ (the completion handler)
-//    func withBigImage(completionHandler handler: @escaping (_ image: UIImage) -> Void){
-//
-//        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-//
-//            // get the url
-//            // get the NSData
-//            // turn it into a UIImage
-//            if let url = URL(string: BigImages.whale.rawValue), let imgData = try? Data(contentsOf: url), let img = UIImage(data: imgData) {
-//                // run the completion block
-//                // always in the main queue, just in case!
-//                DispatchQueue.main.async(execute: { () -> Void in
-//                    handler(img)
-//                })
-//            }
-//        }
-//    }
-    ////
     
     private func bboxString() -> String {
         // ensure bbox is bounded by minimum and maximums, has max and mins if wanting to add enter in own coordinates feature
@@ -240,9 +210,9 @@ class FlickrClient {
                     }
                     photoNumberIndex += 1
                 }
-                print("photos.count = \(photos.count)")
+                print("test 7 photos.count = \(photos.count)")
                 GlobalVariables.globalPhotosArray = photos
-                print("GlobalVariables.globalPhotosArray DURING TASK")
+                print("test 8 GlobalVariables.globalPhotosArray DURING TASK")
             }
             print("GlobalVariables.globalPhotosArray AFTER TASK ")
         }
