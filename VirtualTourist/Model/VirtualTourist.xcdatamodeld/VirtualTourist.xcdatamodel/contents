@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Photo" representedClassName="Photo" syncable="YES" codeGenerationType="class"/>
-    <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
-        <attribute name="attribute" optional="YES" syncable="YES"/>
-    </entity>
+    <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class"/>
     <elements>
-        <element name="Pin" positionX="-225" positionY="-9" width="128" height="58"/>
+        <element name="Pin" positionX="-225" positionY="-9" width="128" height="43"/>
         <element name="Photo" positionX="-47" positionY="-9" width="128" height="45"/>
     </elements>
 </model>

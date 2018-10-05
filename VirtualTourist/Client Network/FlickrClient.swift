@@ -26,7 +26,7 @@ class FlickrClient {
         ]
         
         print("test6")
-        displayImagesFromFlickr(methodParameters as [String:AnyObject])
+        getFlickrData(methodParameters as [String:AnyObject])
         completionHandler(true, nil)
     }
     
@@ -43,7 +43,7 @@ class FlickrClient {
     
     // MARK: Flickr API
     
-    private func displayImagesFromFlickr(_ methodParameters: [String: AnyObject]) {
+    private func getFlickrData(_ methodParameters: [String: AnyObject]) {
         
         // create session and request
         let session = URLSession.shared
@@ -104,16 +104,14 @@ class FlickrClient {
             // pick a random page!
             let pageLimit = min(totalPages, 40)
             let randomPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
-            self.displayImagesFromFlickr(methodParameters, withPageNumber: randomPage)
+            self.getFlickrData(methodParameters, withPageNumber: randomPage)
         }
         
         // start the task!
         task.resume()
     }
     
-    // FIX: For Swift 3, variable parameters are being depreciated. Instead, create a copy of the parameter inside the function.
-    
-    private func displayImagesFromFlickr(_ methodParameters: [String: AnyObject], withPageNumber: Int) {
+    private func getFlickrData(_ methodParameters: [String: AnyObject], withPageNumber: Int) {
         
         // add the page to the method's parameters as new var
         var methodParametersWithPageNumber = methodParameters
@@ -184,13 +182,18 @@ class FlickrClient {
                 
                 var randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
                 print("randomPhotoIndex = \(randomPhotoIndex)")
-                if randomPhotoIndex > 229 {
+                
+                // use 21 consecutive pics
+                if randomPhotoIndex > 21 {
                     randomPhotoIndex = (randomPhotoIndex - 21)
                 }
+                if photosArray.count <= 21 {
+                    randomPhotoIndex = 1
+                }
                 
-                // TODO: use 21 consecutive pics
                 var photoNumberIndex = 0
                 var photos = [UIImage]()
+                
                 let numberOfPhotosToShow = min(photosArray.count, 21)
                 
                 while photoNumberIndex != numberOfPhotosToShow {
