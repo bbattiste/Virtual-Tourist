@@ -21,6 +21,7 @@
 		13538FB3216423B5008F9C3B /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13538FB2216423B5008F9C3B /* FlickrClient.swift */; };
 		13538FB9216694D6008F9C3B /* GCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13538FB8216694D6008F9C3B /* GCD.swift */; };
 		13538FBD2166DD3C008F9C3B /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13538FBB2166DD3C008F9C3B /* VirtualTourist.xcdatamodeld */; };
+		13538FBF2167DD61008F9C3B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13538FBE2167DD61008F9C3B /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		13538FB2216423B5008F9C3B /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		13538FB8216694D6008F9C3B /* GCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCD.swift; sourceTree = "<group>"; };
 		13538FBC2166DD3C008F9C3B /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
+		13538FBE2167DD61008F9C3B /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +74,8 @@
 		1328F852214ADF7E00CF327F /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
-				13538FBA2166DCCE008F9C3B /* Model */,
 				1328F853214ADF7E00CF327F /* AppDelegate.swift */,
+				13538FBA2166DCCE008F9C3B /* Model */,
 				13538FB8216694D6008F9C3B /* GCD.swift */,
 				13538FAF2162BE55008F9C3B /* Client Network */,
 				13538FB02163E2DA008F9C3B /* PhotoCollectionViewCell.swift */,
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				13538FBB2166DD3C008F9C3B /* VirtualTourist.xcdatamodeld */,
+				13538FBE2167DD61008F9C3B /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13538FB9216694D6008F9C3B /* GCD.swift in Sources */,
+				13538FBF2167DD61008F9C3B /* DataController.swift in Sources */,
 				133862412159EFF700E9DC18 /* PinObject.swift in Sources */,
 				13538FB12163E2DA008F9C3B /* PhotoCollectionViewCell.swift in Sources */,
 				1328F866214AF47B00CF327F /* MapViewController.swift in Sources */,
