@@ -242,3 +242,32 @@ class FlickrClient {
         return components.url!
     }
 }
+
+//// suggestion from mentor
+//class NetworkClient: NSObject {
+//
+//    // shared session
+//    var session = URLSession.shared
+//
+//    // MARK: Initializers
+//
+//    override init() {
+//        super.init()
+//    }
+//
+//
+//    func doLogout(session: String, completion: @escaping (_ data: LogoutResponseModel?, _ error : String?) -> Void) {
+//        makeRequest(.doLogout(session: session), type: LogoutResponseModel.self, completion: completion)
+//    }
+//
+//    static let shared = NetworkClient()
+//}
+
+////and when you want to use a function in this class, you can do as below
+//
+//NetworkClient.shared.doLogin(email: email, password: password, completion: { (data, error) in
+//.....
+//})
+
+// If you do choose to use a singleton it should be a private init so that there can be only one (accessed from .shared)
+

@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import MapKit
+import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -17,6 +18,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Vars/Lets
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
+    
+    var dataController: DataController!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -82,7 +82,7 @@
 				133862402159EFF700E9DC18 /* PinObject.swift */,
 				13538FA921629A06008F9C3B /* GlobalFunctions.swift */,
 				13386242215B2D1400E9DC18 /* GlobalVariables.swift */,
-				13538FAE2162BCA5008F9C3B /* Views */,
+				13538FAE2162BCA5008F9C3B /* ViewConrtollers */,
 				1328F857214ADF7E00CF327F /* Main.storyboard */,
 				1328F85A214ADF8900CF327F /* Assets.xcassets */,
 				1328F85C214ADF8900CF327F /* LaunchScreen.storyboard */,
@@ -91,13 +91,13 @@
 			path = VirtualTourist;
 			sourceTree = "<group>";
 		};
-		13538FAE2162BCA5008F9C3B /* Views */ = {
+		13538FAE2162BCA5008F9C3B /* ViewConrtollers */ = {
 			isa = PBXGroup;
 			children = (
 				1328F865214AF47B00CF327F /* MapViewController.swift */,
 				1328F869214B022E00CF327F /* PhotoViewController.swift */,
 			);
-			path = Views;
+			path = ViewConrtollers;
 			sourceTree = "<group>";
 		};
 		13538FAF2162BE55008F9C3B /* Client Network */ = {

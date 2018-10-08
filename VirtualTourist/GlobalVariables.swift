@@ -13,6 +13,6 @@ import CoreData
 struct GlobalVariables {
     
     static var LocationCoordinate = CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129)
-    static var globalPhotosArray = [UIImage]()
+    static var globalPhotosArray = [Photo]()
     
 }
