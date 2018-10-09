@@ -57,7 +57,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
 
     func createAnnotation() {
-        let pin = PinObject(coordinate: pinLocation, context: dataController.viewContext)
+        let pin = PinObject(coordinate: pinLocation)
         pin.coordinate = pinLocation
         self.mapView.addAnnotation(pin)
     }

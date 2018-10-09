@@ -57,16 +57,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
             
-            // 
+            // Create coordinate from touchpoint
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-            let pinAnnotation = PinObject(coordinate: newCoordinate, context: dataController.viewContext)
+            
+            // Create Annotation
+            let pinAnnotation = PinObject(coordinate: newCoordinate)
             self.mapView.addAnnotation(pinAnnotation)
             print("placed pin")
             
             // Save pin data
-            pinAnnotation.pinData?.latitude = newCoordinate.latitude
-            pinAnnotation.pinData?.longitude = newCoordinate.longitude
+            let pin = Pin(context: dataController.viewContext)
+            pin.latitude = newCoordinate.latitude
+            pin.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
             print("Saved location to CoreData")
             
