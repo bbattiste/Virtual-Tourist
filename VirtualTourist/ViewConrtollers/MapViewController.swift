@@ -28,8 +28,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             pins = result
-            // reload map()
         }
+        addPinsToMap()
     }
     
 //    override func viewDidLoad() {
@@ -50,10 +50,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //        }
 //    }
     
-    
-    
-    
-    
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
             
@@ -72,14 +68,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pin.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
             print("Saved location to CoreData")
-            
-            
-            
         }
-        // TODO: When pins are dropped on the map, are they persisted as Pin instances in Core Data?
-        // maybe create array of annotations
     }
     
+    func addPinsToMap() {
+        for pin in pins {
+            let pinAnnotation = PinObject(coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
+            self.mapView.addAnnotation(pinAnnotation)
+        }
+    }
+    
+    // prsent PhotoViewController when pin tapped
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         
         // Grab coordinates of pin tapped
