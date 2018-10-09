@@ -13,8 +13,10 @@ import CoreData
 class PinObject: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var pin: Pin?
+    var context: NSManagedObjectContext
     
-    init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D, context: NSManagedObjectContext){
         self.coordinate = coordinate
+        self.context = context
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import MapKit
+import CoreData
 
 class PhotoViewController: UIViewController, MKMapViewDelegate {
     
@@ -25,6 +26,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
     var photos = GlobalVariables.globalPhotosArray
+    var dataController: DataController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +57,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
 
     func createAnnotation() {
-        let pin = PinObject(coordinate: pinLocation)
+        let pin = PinObject(coordinate: pinLocation, context: dataController.viewContext)
         pin.coordinate = pinLocation
         self.mapView.addAnnotation(pin)
     }

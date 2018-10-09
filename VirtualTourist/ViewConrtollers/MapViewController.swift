@@ -16,24 +16,53 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: Vars/Lets
+    var pins: [Pin] = []
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
-    
     var dataController: DataController!
+    var fetchedResultsController:NSFetchedResultsController<Pin>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
+        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            pins = result
+            // reload map()
+        }
     }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setupFetchedResultsController()
+//        centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
+//    }
+//
+//    fileprivate func setupFetchedResultsController() {
+//        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+//
+//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "pins")
+//        fetchedResultsController.delegate = self
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+//        }
+//    }
+    
+    
+    
+    
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
 
-            let pin = PinObject(coordinate: newCoordinate)
-
+            let pin = PinObject(coordinate: newCoordinate, context: dataController.viewContext)
             pin.coordinate = newCoordinate
+            try? dataController.viewContext.save()
+            print("Saved location to CareData")
             self.mapView.addAnnotation(pin)
         }
         // TODO: When pins are dropped on the map, are they persisted as Pin instances in Core Data?
