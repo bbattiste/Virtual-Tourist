@@ -80,11 +80,12 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
             let photosInCell = GlobalVariables.globalPhotosArray[(indexPath as NSIndexPath).row]
     
             // Set the image
-            cell.imageView?.image = photosInCell
+            // TODO: cell.imageView?.image = photosInCell
     
             return cell
         }
     
+    // TODO: Delete photos: lesson 4.8
 //        override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
 //      //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
 //

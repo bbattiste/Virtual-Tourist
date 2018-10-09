@@ -215,7 +215,7 @@ class FlickrClient {
                     photoNumberIndex += 1
                 }
                 print("test 7 photos.count = \(photos.count)")
-                GlobalVariables.globalPhotosArray = photos
+                // TODO: GlobalVariables.globalPhotosArray = photos
                 print("test 8 GlobalVariables.globalPhotosArray DURING TASK")
             }
             print("GlobalVariables.globalPhotosArray AFTER TASK ")

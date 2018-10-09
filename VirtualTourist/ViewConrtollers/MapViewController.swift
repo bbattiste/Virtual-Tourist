@@ -56,14 +56,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
+            
+            // 
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-
-            let pin = PinObject(coordinate: newCoordinate, context: dataController.viewContext)
-            pin.coordinate = newCoordinate
+            let pinAnnotation = PinObject(coordinate: newCoordinate, context: dataController.viewContext)
+            self.mapView.addAnnotation(pinAnnotation)
+            print("placed pin")
+            
+            // Save pin data
+            pinAnnotation.pinData?.latitude = newCoordinate.latitude
+            pinAnnotation.pinData?.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
-            print("Saved location to CareData")
-            self.mapView.addAnnotation(pin)
+            print("Saved location to CoreData")
+            
+            
+            
         }
         // TODO: When pins are dropped on the map, are they persisted as Pin instances in Core Data?
         // maybe create array of annotations
