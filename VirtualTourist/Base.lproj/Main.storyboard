@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rBf-tu-P4N">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="erw-ed-qMn"/>
@@ -57,7 +57,7 @@
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zuu-Ot-JZl"/>
                             <constraint firstItem="8MW-uh-9pP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="obD-VW-gcT"/>
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yzD-Bl-oNY"/>
-                            <constraint firstItem="rBf-tu-P4N" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zzE-zd-OUn"/>
+                            <constraint firstItem="rBf-tu-P4N" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="zzE-zd-OUn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -73,7 +73,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="766" y="116"/>
+            <point key="canvasLocation" x="765.60000000000002" y="115.59220389805098"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="0fV-op-Z4s">
