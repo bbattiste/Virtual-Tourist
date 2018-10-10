@@ -122,9 +122,9 @@
                                 </connections>
                             </collectionView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="H8d-0L-eJg">
-                                <rect key="frame" x="0.0" y="44" width="375" height="216"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="217"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="52q-Qw-EZf"/>
+                                    <constraint firstAttribute="height" constant="217" id="aqC-6Z-MYZ"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="JS1-ik-Dby" id="xek-cc-BRe"/>
@@ -135,16 +135,9 @@
                                 <state key="normal" title="New Collection of Photos"/>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQk-BZ-Tdy">
-                                <rect key="frame" x="0.0" y="6" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem id="MPs-8A-zTp">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="Wco-MD-gic">
-                                            <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="0.0"/>
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="show" id="ewm-yq-Wjv"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
+                                    <navigationItem id="MPs-8A-zTp"/>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -152,7 +145,7 @@
                         <constraints>
                             <constraint firstItem="0bB-zE-Pjb" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="6ra-2m-Aky"/>
                             <constraint firstItem="H8d-0L-eJg" firstAttribute="trailing" secondItem="81I-Ok-dqV" secondAttribute="trailing" id="HPg-R7-tbW"/>
-                            <constraint firstItem="FQk-BZ-Tdy" firstAttribute="top" secondItem="rf9-Gs-KSb" secondAttribute="top" constant="6" id="OTx-wu-7vS"/>
+                            <constraint firstItem="FQk-BZ-Tdy" firstAttribute="top" secondItem="rf9-Gs-KSb" secondAttribute="top" constant="20" id="OTx-wu-7vS"/>
                             <constraint firstItem="FQk-BZ-Tdy" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="UTc-ku-RcY"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="height" secondItem="FQk-BZ-Tdy" secondAttribute="height" constant="11" id="XFh-ZW-qS6"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="bottom" secondItem="81I-Ok-dqV" secondAttribute="bottom" id="XQe-Uq-aTO"/>
@@ -162,14 +155,13 @@
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="bottom" secondItem="81I-Ok-dqV" secondAttribute="bottom" id="hzO-MR-DRo"/>
                             <constraint firstItem="0bB-zE-Pjb" firstAttribute="trailing" secondItem="81I-Ok-dqV" secondAttribute="trailing" id="ob0-Er-fH8"/>
                             <constraint firstItem="FQk-BZ-Tdy" firstAttribute="trailing" secondItem="81I-Ok-dqV" secondAttribute="trailing" id="rQq-qz-Ade"/>
-                            <constraint firstItem="H8d-0L-eJg" firstAttribute="top" secondItem="FQk-BZ-Tdy" secondAttribute="bottom" constant="-6" id="vlS-rv-yQ4"/>
+                            <constraint firstItem="H8d-0L-eJg" firstAttribute="top" secondItem="FQk-BZ-Tdy" secondAttribute="bottom" constant="-20" id="vlS-rv-yQ4"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="top" secondItem="0bB-zE-Pjb" secondAttribute="bottom" constant="8" id="x3Y-ft-tDz"/>
                             <constraint firstItem="H8d-0L-eJg" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="yv1-gL-5BH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="81I-Ok-dqV"/>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="Wco-MD-gic" id="xVK-JT-LT0"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                         <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
                         <outlet property="photoCollectionView" destination="0bB-zE-Pjb" id="yD0-64-ANJ"/>
@@ -177,10 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlS-XV-IHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1510" y="116"/>
+            <point key="canvasLocation" x="1509.5999999999999" y="115.59220389805098"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="46k-CG-3SA"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataController.load()
         
         let navigationController = window?.rootViewController as! UINavigationController
-        let mapViewListViewController = navigationController.topViewController as! MapViewController
-        mapViewListViewController.dataController = dataController
+        let MapViewController = navigationController.topViewController as! MapViewController
+        MapViewController.dataController = dataController
         
         return true
     }

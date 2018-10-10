@@ -88,7 +88,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
         // Pass the created instance to current navigation stack
-        present(goToPhotoViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(goToPhotoViewController, animated: true)
     }
     
     // This changes changes the view of the pin and mediaURL
