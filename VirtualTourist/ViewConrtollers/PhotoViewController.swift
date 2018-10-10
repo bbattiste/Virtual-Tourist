@@ -37,19 +37,11 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         print("test3")
         //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
         //self.client.getPhotos()
-        client.getPhotos() { (success, error) in
-            if success {
-                print("!!!!!!!!!!!!!!!!!!!! URLS ready")
-                //self.photoCollectionView.reloadData()
-                print("test3.5")
-            } else {
-                print(error!)
-            }
-        }
-        print("test4")
+        client.getPhotos()
+        print("test11")
         self.photoCollectionView.reloadData()
-        print("test5 photos begin view = \(self.photos)")
-        print("test6 GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
+        print("test photos begin view = \(self.photos)")
+        print("test GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
