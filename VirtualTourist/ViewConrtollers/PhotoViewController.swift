@@ -39,7 +39,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         //self.client.getPhotos()
         client.getPhotos() { (success, error) in
             if success {
-                self.photoCollectionView.reloadData()
+                print("!!!!!!!!!!!!!!!!!!!! URLS ready")
+                //self.photoCollectionView.reloadData()
                 print("test3.5")
             } else {
                 print(error!)

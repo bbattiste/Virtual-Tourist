@@ -78,7 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // prsent PhotoViewController when pin tapped
+    // push PhotoViewController when pin tapped
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         
         // Grab coordinates of pin tapped
@@ -86,6 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
+        goToPhotoViewController.dataController = self.dataController
         
         // Pass the created instance to current navigation stack
         navigationController?.pushViewController(goToPhotoViewController, animated: true)
