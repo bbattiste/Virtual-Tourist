@@ -14,7 +14,7 @@ import CoreData
 class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var backButton: UIBarButtonItem!
+    //@IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var photoCollectionView: UICollectionView!
@@ -35,7 +35,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         print("test2")
         self.createAnnotation()
         print("test3")
-        //TODO: if new location, download photos, otherwise displays assigned photos
+        //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
         //self.client.getPhotos()
         client.getPhotos() { (success, error) in
             if success {
