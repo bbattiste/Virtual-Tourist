@@ -166,6 +166,8 @@ class FlickrClient {
                 return
             }
             
+            print(parsedResult)
+            
             /* GUARD: Did Flickr return an error (stat != ok)? */
             guard let stat = parsedResult[Constants.FlickrResponseKeys.Status] as? String, stat == Constants.FlickrResponseValues.OKStatus else {
                 completionHandler(false, "Flickr API returned an error. See error code and message in \(parsedResult)")
@@ -185,13 +187,13 @@ class FlickrClient {
             }
             
             /* GUARD: Check if any photos exist */
-            guard photosArray.count == 0 else {
+            guard photosArray.count != 0 else {
                 completionHandler(false, "No Photos Found. Search Again.")
                 return
             }
             
             var randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
-            print("randomPhotoIndex = \(randomPhotoIndex)")
+            print("randomPhotoIndex at start = \(randomPhotoIndex)")
             
             // use 21 consecutive image URLs or number available
             if randomPhotoIndex > 21 {
@@ -200,7 +202,9 @@ class FlickrClient {
             if photosArray.count <= 21 {
                 randomPhotoIndex = 0
             }
+            print("randomPhotoIndex at after edit = \(randomPhotoIndex)")
             let numberOfPhotosToShow = min(photosArray.count, 21)
+            print("numberOfPhotosToShow = \(numberOfPhotosToShow)")
             
             var photoNumberIndex = 0
             while photoNumberIndex != numberOfPhotosToShow {
@@ -212,7 +216,7 @@ class FlickrClient {
                     completionHandler(false, "Cannot find key '\(Constants.FlickrResponseKeys.MediumURL)' in \(photoDictionary)")
                     return
                 }
-                
+                print("imageUrlString = \(imageUrlString as String)")
                 // save imageUrlString
                 let photo = Photo(context: self.dataController.viewContext)
                 photo.uRL = imageUrlString
