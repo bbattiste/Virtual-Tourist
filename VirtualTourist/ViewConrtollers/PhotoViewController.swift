@@ -27,6 +27,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     let client = FlickrClient()
     var photos = GlobalVariables.globalPhotosArray
     var dataController: DataController!
+    var selectedPhotoPin: Pin!
     
     override func viewDidLoad() {
         super.viewDidLoad()
