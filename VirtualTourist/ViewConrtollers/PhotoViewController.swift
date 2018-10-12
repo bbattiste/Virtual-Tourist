@@ -30,23 +30,38 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("test1")
         centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
-        print("test2")
         self.createAnnotation()
-        print("test3")
         //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
         //self.client.getPhotos()
-        client.getPhotos()
-        print("test11")
-        self.photoCollectionView.reloadData()
-        print("test photos begin view = \(self.photos)")
-        print("test GlobalVariables.globalPhotosArray begin view= \(GlobalVariables.globalPhotosArray)")
+        client.getPhotos() { (success, uRLResultLevel1, error) in
+            if success {
+                // save imageUrlStrings from array
+                for uRLString in uRLResultLevel1 {
+                    let photo = Photo(context: self.dataController.viewContext)
+                    photo.uRL = uRLString
+                    try? self.dataController.viewContext.save()
+                }
+                
+                GlobalVariables.globalURLArray = uRLResultLevel1
+                performUIUpdatesOnMain {
+                    self.photoCollectionView.reloadData()
+                    //self.activityIndicatorMap.stopAnimating()
+                }
+            } else {
+                performUIUpdatesOnMain {
+                    print(error!)
+                    //self.activityIndicatorMap.stopAnimating()
+                }
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         print("photos end view = \(self.photos.count)")
-        print("GlobalVariables.globalPhotosArray end view= \(GlobalVariables.globalPhotosArray.count)")
+        print("GlobalVariables.globalURLArray end view = \(GlobalVariables.globalURLArray.count)")
+        GlobalVariables.globalURLArray = []
+        print("GlobalVariables.globalURLArray reset = \(GlobalVariables.globalURLArray.count)")
     }
 
     func createAnnotation() {
@@ -62,15 +77,15 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             //TODO:  number of pics returned.count
-            print("numberOfItemsInSection = \(GlobalVariables.globalPhotosArray.count)")
-            return GlobalVariables.globalPhotosArray.count
+            print("numberOfItemsInSection = \(GlobalVariables.globalURLArray.count)")
+            return GlobalVariables.globalURLArray.count
         }
     
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
             print("cellForItemAt")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-            let photosInCell = GlobalVariables.globalPhotosArray[(indexPath as NSIndexPath).row]
+//            let photosInCell = GlobalVariables.globalPhotosArray[(indexPath as NSIndexPath).row]
     
             // Set the image
             // TODO: cell.imageView?.image = photosInCell
