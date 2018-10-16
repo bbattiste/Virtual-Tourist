@@ -42,10 +42,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
                 
-                performUIUpdatesOnMain {
-                    self.photoCollectionView.reloadData()
-                    //self.activityIndicatorMap.stopAnimating()
-                }
                 GlobalVariables.globalURLArray = uRLResultLevel1
                 
                 // save imageUrlStrings from array
