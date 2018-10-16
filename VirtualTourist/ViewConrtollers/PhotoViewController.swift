@@ -28,23 +28,52 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     var photos = GlobalVariables.globalPhotosArray
     var dataController: DataController!
     var selectedPhotoPin: Pin!
+    var fetchedResultsController:NSFetchedResultsController<Photo>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
         self.createAnnotation()
+        
+        
         //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
         //self.client.getPhotos()
+        
+//        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+//        let predicate = NSPredicate(format: "pin == %@", selectedPhotoPin)
+//        fetchRequest.predicate = predicate
+//
+//        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+//            photos = result
+//        }
+        
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
+                
+                performUIUpdatesOnMain {
+                    self.photoCollectionView.reloadData()
+                    //self.activityIndicatorMap.stopAnimating()
+                }
+                GlobalVariables.globalURLArray = uRLResultLevel1
+                
                 // save imageUrlStrings from array
                 for uRLString in uRLResultLevel1 {
                     let photo = Photo(context: self.dataController.viewContext)
                     photo.uRL = uRLString
+                    
+                    let imageURL = NSURL(string: uRLString)
+                    let imageAsData = try? Data(contentsOf: imageURL! as URL)
+                    photo.image = imageAsData
+                    
+                    print(self.selectedPhotoPin)
+                    print(photo)
+                    self.selectedPhotoPin.addToPhotos(photo)
                     try? self.dataController.viewContext.save()
+                    print("photo Saved")
+                    
                 }
                 
-                GlobalVariables.globalURLArray = uRLResultLevel1
+                
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
                     //self.activityIndicatorMap.stopAnimating()
