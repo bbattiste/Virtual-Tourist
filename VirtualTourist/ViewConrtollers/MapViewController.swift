@@ -20,7 +20,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
     var dataController: DataController!
-    var fetchedResultsController:NSFetchedResultsController<Pin>!
     
     override func viewDidLoad() {
         super.viewDidLoad()

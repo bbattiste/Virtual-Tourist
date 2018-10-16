@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 import CoreData
 
-class PhotoViewController: UIViewController, MKMapViewDelegate {
+class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     //@IBOutlet weak var backButton: UIBarButtonItem!
@@ -39,14 +39,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
         //self.client.getPhotos()
         
-//        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-//        let predicate = NSPredicate(format: "pin == %@", selectedPhotoPin)
-//        fetchRequest.predicate = predicate
-//
-//        if let result = try? dataController.viewContext.fetch(fetchRequest) {
-//            photos = result
-//        }
-        
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
                 
@@ -61,18 +53,44 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                     let photo = Photo(context: self.dataController.viewContext)
                     photo.uRL = uRLString
                     
-                    let imageURL = NSURL(string: uRLString)
-                    let imageAsData = try? Data(contentsOf: imageURL! as URL)
+                    let imageURL = URL(string: uRLString)
+                    let imageAsData = try? Data(contentsOf: imageURL!)
                     photo.image = imageAsData
                     
-                    print(self.selectedPhotoPin)
-                    print(photo)
                     self.selectedPhotoPin.addToPhotos(photo)
                     try? self.dataController.viewContext.save()
                     print("photo Saved")
                     
                 }
                 
+            // Fetch Photos
+                let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+                let predicate = NSPredicate(format: "pin == %@", self.selectedPhotoPin)
+                fetchRequest.predicate = predicate
+                
+                //fetchedResultsController needs sorting to work properly
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                
+//                if let result = try? self.dataController.viewContext.fetch(fetchRequest) {
+//                    self.photos = result
+//                }
+                
+                self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+                self.fetchedResultsController.delegate = self
+                do {
+                    try self.fetchedResultsController.performFetch()
+                    print("fetchPerformed")
+                } catch {
+                    fatalError("The fetch could not be performed: \(error.localizedDescription)")
+                }
+                
+                
+
+//                let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+//                if let result = try? dataController.viewContext.fetch(fetchRequest) {
+//                    pins = result
+//                }
+//                addPinsToMap()
                 
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
@@ -88,6 +106,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        fetchedResultsController = nil
         print("photos end view = \(self.photos.count)")
         print("GlobalVariables.globalURLArray end view = \(GlobalVariables.globalURLArray.count)")
         GlobalVariables.globalURLArray = []
@@ -115,10 +135,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             print("cellForItemAt")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-//            let photosInCell = GlobalVariables.globalPhotosArray[(indexPath as NSIndexPath).row]
-    
+            //print("fetchedResultsController.object = \(fetchedResultsController.object)")
+            let photoForCell = fetchedResultsController.object(at: indexPath)
+            print(photoForCell)
             // Set the image
-            // TODO: cell.imageView?.image = photosInCell
+            cell.imageView.image = UIImage(data: photoForCell.image!)
     
             return cell
         }
