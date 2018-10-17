@@ -14,6 +14,8 @@ import CoreData
 class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicatorPhoto: UIActivityIndicatorView!
+    
     //@IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
@@ -32,6 +34,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        activityIndicatorPhoto.startAnimating()
         centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
         self.createAnnotation()
         
@@ -90,11 +94,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                 
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
+                    self.activityIndicatorPhoto.stopAnimating()
                     //self.activityIndicatorMap.stopAnimating()
                 }
             } else {
                 performUIUpdatesOnMain {
                     print(error!)
+                    self.activityIndicatorPhoto.stopAnimating()
                     //self.activityIndicatorMap.stopAnimating()
                 }
             }

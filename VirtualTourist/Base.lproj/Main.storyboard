@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N4x-lw-oUN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N4x-lw-oUN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,13 +48,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="O4P-H6-KBw">
+                                <rect key="frame" x="157.5" y="335.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="QRm-gg-3P3"/>
+                                    <constraint firstAttribute="width" constant="60" id="esf-Dr-xVx"/>
+                                </constraints>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="1VR-Aw-Tfk"/>
                             <constraint firstItem="8MW-uh-9pP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hxl-ke-7BA"/>
                             <constraint firstItem="8MW-uh-9pP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="UXp-jM-Jm7"/>
+                            <constraint firstItem="O4P-H6-KBw" firstAttribute="centerY" secondItem="rBf-tu-P4N" secondAttribute="centerY" id="W68-SW-WnG"/>
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zuu-Ot-JZl"/>
+                            <constraint firstItem="O4P-H6-KBw" firstAttribute="centerX" secondItem="rBf-tu-P4N" secondAttribute="centerX" id="btY-f5-0fm"/>
                             <constraint firstItem="8MW-uh-9pP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="obD-VW-gcT"/>
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yzD-Bl-oNY"/>
                             <constraint firstItem="rBf-tu-P4N" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="zzE-zd-OUn"/>
@@ -63,6 +73,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Bvu-f0-bLf"/>
                     <connections>
+                        <outlet property="activityIndicatorMap" destination="O4P-H6-KBw" id="T97-Ej-CLb"/>
                         <outlet property="mapView" destination="rBf-tu-P4N" id="sNt-zo-oiv"/>
                     </connections>
                 </viewController>
@@ -92,6 +103,15 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="hBJ-Hd-uPN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="346"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="IR1-9H-kFH"/>
+                                        <constraint firstAttribute="height" constant="60" id="zzW-Kw-zky"/>
+                                    </constraints>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="iAc-tg-lQB" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
@@ -162,6 +182,7 @@
                         <viewLayoutGuide key="safeArea" id="81I-Ok-dqV"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorPhoto" destination="hBJ-Hd-uPN" id="3Ws-VM-pcq"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
                         <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
                         <outlet property="photoCollectionView" destination="0bB-zE-Pjb" id="yD0-64-ANJ"/>

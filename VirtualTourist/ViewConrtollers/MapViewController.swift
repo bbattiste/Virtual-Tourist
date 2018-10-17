@@ -14,6 +14,7 @@ import CoreData
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicatorMap: UIActivityIndicatorView!
     
     // MARK: Vars/Lets
     var pins: [Pin] = []
@@ -23,14 +24,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicatorMap.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        activityIndicatorMap.startAnimating()
         centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             pins = result
         }
         addPinsToMap()
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+            self.activityIndicatorMap.stopAnimating()
+        })
+
+    }
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //        setupFetchedResultsController()
