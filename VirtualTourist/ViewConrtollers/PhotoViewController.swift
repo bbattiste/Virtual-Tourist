@@ -134,17 +134,12 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
     
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        if fetchedResultsController.sections?.count == nil {
-//            return 1
-//        } else {
-//            return fetchedResultsController.sections?.count ?? 1
-//        }
-//    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return fetchedResultsController.sections?.count ?? 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return GlobalVariables.globalURLArray.count
-        //return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+            return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -159,6 +154,7 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
+        print("didSelectItemAt called")
         let photoToDelete = fetchedResultsController.object(at: indexPath)
         dataController.viewContext.delete(photoToDelete)
         try? self.dataController.viewContext.save()
