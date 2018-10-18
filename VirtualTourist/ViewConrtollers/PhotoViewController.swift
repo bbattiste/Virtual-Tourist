@@ -141,13 +141,8 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     // TODO: Delete photos: lesson 4.8
-//        override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
-//      //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
-//
-//            let detailController = self.storyboard!.instantiateViewController(withIdentifier: "VillainDetailViewController") as! VillainDetailViewController
-//            detailController.villain = self.allVillains[(indexPath as NSIndexPath).row]
-//            self.navigationController!.pushViewController(detailController, animated: true)
-//
-//        }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
+      //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
+
+        }
 }

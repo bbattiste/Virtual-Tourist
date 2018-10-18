@@ -32,14 +32,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pins = result
         }
         addPinsToMap()
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
-            self.activityIndicatorMap.stopAnimating()
-        })
-
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        self.activityIndicatorMap.stopAnimating()
     }
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
