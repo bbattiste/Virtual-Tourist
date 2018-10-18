@@ -34,8 +34,7 @@ class FlickrClient {
                 completionHandler(true, uRLArray, nil)
             } else {
                 performUIUpdatesOnMain {
-                    print(error!)
-                    //self.activityIndicatorMap.stopAnimating()
+                    completionHandler(false, [], error)
                 }
             }
         }
@@ -117,8 +116,7 @@ class FlickrClient {
                     completionHandler(true, uRLArray, nil)
                 } else {
                     performUIUpdatesOnMain {
-                        print(error!)
-                        //self.activityIndicatorMap.stopAnimating()
+                        completionHandler(false, [], error)
                     }
                 }
             }

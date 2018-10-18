@@ -15,11 +15,10 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorPhoto: UIActivityIndicatorView!
-    
-    //@IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var photoCollectionView: UICollectionView!
+    @IBOutlet weak var missingImagesLabel: UILabel!
     
     
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
@@ -31,9 +30,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     var dataController: DataController!
     var selectedPhotoPin: Pin!
     var fetchedResultsController:NSFetchedResultsController<Photo>!
+    var indexOfCollectionView = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initial setup
+        missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorPhoto.startAnimating()
         centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
@@ -46,7 +49,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
                 
+                performUIUpdatesOnMain {
+                    self.missingImagesLabel.isHidden = true
+                }
                 GlobalVariables.globalURLArray = uRLResultLevel1
+                
+                // Check for images to make missingImagesLabel visible or hidden
+                
                 
                 // save imageUrlStrings from array
                 for uRLString in uRLResultLevel1 {
@@ -63,17 +72,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                     
                 }
                 
-            // Fetch Photos
+                // Fetch Photos using fetchedRequest and fetchController
                 let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
                 let predicate = NSPredicate(format: "pin == %@", self.selectedPhotoPin)
                 fetchRequest.predicate = predicate
-                
                 //fetchedResultsController needs sorting to work properly
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-//                if let result = try? self.dataController.viewContext.fetch(fetchRequest) {
-//                    self.photos = result
-//                }
                 
                 self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
                 self.fetchedResultsController.delegate = self
@@ -84,14 +88,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                     fatalError("The fetch could not be performed: \(error.localizedDescription)")
                 }
                 
-                
-
-//                let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-//                if let result = try? dataController.viewContext.fetch(fetchRequest) {
-//                    pins = result
-//                }
-//                addPinsToMap()
-                
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
                     self.activityIndicatorPhoto.stopAnimating()
@@ -99,9 +95,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                 }
             } else {
                 performUIUpdatesOnMain {
+                    print("test 1")
                     print(error!)
+                    print("test 2")
                     self.activityIndicatorPhoto.stopAnimating()
-                    //self.activityIndicatorMap.stopAnimating()
+                    print("test 3")
+                    self.missingImagesLabel.isHidden = false
+                    print("test 4")
                 }
             }
         }
@@ -110,10 +110,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
-        print("photos end view = \(self.photos.count)")
-        print("GlobalVariables.globalURLArray end view = \(GlobalVariables.globalURLArray.count)")
         GlobalVariables.globalURLArray = []
-        print("GlobalVariables.globalURLArray reset = \(GlobalVariables.globalURLArray.count)")
     }
 
     func createAnnotation() {
@@ -127,24 +124,21 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            //TODO:  number of pics returned.count
-            print("numberOfItemsInSection = \(GlobalVariables.globalURLArray.count)")
-            return GlobalVariables.globalURLArray.count
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return GlobalVariables.globalURLArray.count
+    }
     
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            print("cellForItemAt")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-            //print("fetchedResultsController.object = \(fetchedResultsController.object)")
-            let photoForCell = fetchedResultsController.object(at: indexPath)
-            print(photoForCell)
-            // Set the image
-            cell.imageView.image = UIImage(data: photoForCell.image!)
-    
-            return cell
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
+        //print("fetchedResultsController.object = \(fetchedResultsController.object)")
+        let photoForCell = fetchedResultsController.object(at: indexPath)
+        print(photoForCell)
+        // Set the image
+        cell.imageView.image = UIImage(data: photoForCell.image!)
+
+        return cell
+    }
     
     // TODO: Delete photos: lesson 4.8
 //        override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {

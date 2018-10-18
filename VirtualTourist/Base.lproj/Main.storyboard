@@ -154,6 +154,12 @@
                                 <rect key="frame" x="0.0" y="612" width="375" height="55"/>
                                 <state key="normal" title="New Collection of Photos"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No Photos Found. Search Again." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II9-D9-r2y">
+                                <rect key="frame" x="0.0" y="258" width="375" height="346"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQk-BZ-Tdy">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
@@ -164,11 +170,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0bB-zE-Pjb" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="6ra-2m-Aky"/>
+                            <constraint firstItem="II9-D9-r2y" firstAttribute="centerY" secondItem="0bB-zE-Pjb" secondAttribute="centerY" id="8fM-1T-tv5"/>
                             <constraint firstItem="H8d-0L-eJg" firstAttribute="trailing" secondItem="81I-Ok-dqV" secondAttribute="trailing" id="HPg-R7-tbW"/>
                             <constraint firstItem="FQk-BZ-Tdy" firstAttribute="top" secondItem="rf9-Gs-KSb" secondAttribute="top" constant="20" id="OTx-wu-7vS"/>
                             <constraint firstItem="FQk-BZ-Tdy" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="UTc-ku-RcY"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="height" secondItem="FQk-BZ-Tdy" secondAttribute="height" constant="11" id="XFh-ZW-qS6"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="bottom" secondItem="81I-Ok-dqV" secondAttribute="bottom" id="XQe-Uq-aTO"/>
+                            <constraint firstItem="II9-D9-r2y" firstAttribute="centerX" secondItem="0bB-zE-Pjb" secondAttribute="centerX" id="YBA-32-8lc"/>
                             <constraint firstItem="0bB-zE-Pjb" firstAttribute="top" secondItem="rf9-Gs-KSb" secondAttribute="top" constant="258" id="fNq-D1-NWl"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="trailing" secondItem="81I-Ok-dqV" secondAttribute="trailing" id="h9A-mq-hl2"/>
                             <constraint firstItem="YaE-EO-vdQ" firstAttribute="leading" secondItem="81I-Ok-dqV" secondAttribute="leading" id="heQ-qU-TJa"/>
@@ -184,6 +192,7 @@
                     <connections>
                         <outlet property="activityIndicatorPhoto" destination="hBJ-Hd-uPN" id="3Ws-VM-pcq"/>
                         <outlet property="mapView" destination="H8d-0L-eJg" id="gyk-Dr-9xJ"/>
+                        <outlet property="missingImagesLabel" destination="II9-D9-r2y" id="pMO-Ma-2y1"/>
                         <outlet property="newCollectionButton" destination="YaE-EO-vdQ" id="uvZ-jD-gWD"/>
                         <outlet property="photoCollectionView" destination="0bB-zE-Pjb" id="yD0-64-ANJ"/>
                     </connections>
