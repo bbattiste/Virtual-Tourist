@@ -95,13 +95,9 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                 }
             } else {
                 performUIUpdatesOnMain {
-                    print("test 1")
                     print(error!)
-                    print("test 2")
                     self.activityIndicatorPhoto.stopAnimating()
-                    print("test 3")
                     self.missingImagesLabel.isHidden = false
-                    print("test 4")
                 }
             }
         }

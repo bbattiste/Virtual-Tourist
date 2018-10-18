@@ -12,7 +12,8 @@ import MapKit
 import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
-
+    
+    // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorMap: UIActivityIndicatorView!
     
@@ -22,6 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let client = FlickrClient()
     var dataController: DataController!
     
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicatorMap.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -37,24 +39,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         self.activityIndicatorMap.stopAnimating()
     }
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        setupFetchedResultsController()
-//        centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
-//    }
-//
-//    fileprivate func setupFetchedResultsController() {
-//        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-//
-//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "pins")
-//        fetchedResultsController.delegate = self
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            fatalError("The fetch could not be performed: \(error.localizedDescription)")
-//        }
-//    }
     
+    // MARK: Actions
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
             
@@ -101,7 +87,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         goToPhotoViewController.selectedPhotoPin = selectedMapPin
         goToPhotoViewController.dataController = self.dataController
         
-        // Pass the created instance to current navigation stack
+        // Pass the created instance to navigation stack
         navigationController?.pushViewController(goToPhotoViewController, animated: true)
     }
     
