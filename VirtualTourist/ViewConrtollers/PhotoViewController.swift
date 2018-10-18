@@ -46,10 +46,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
         
         pullSavedPhotos()
-        if selectedPhotoPin.photos?.count == 0 {
-            print("selectedPhotoPin.photos?.count = no photos")
+        if let isSavedPhotos = fetchedResultsController.sections {
+            print("Has Saved photos to use")
+            print(isSavedPhotos.count)
+            print(fetchedResultsController.sections as Any)
         } else{
-            print("selectedPhotoPin.photos?.count = \(selectedPhotoPin.photos?.count)")
+            print("is not any saved photos")
         }
         
         
@@ -75,8 +77,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                     
                     self.selectedPhotoPin.addToPhotos(photo)
                     try? self.dataController.viewContext.save()
-                    print("photo Saved")
-                    
                 }
                 
                 self.pullSavedPhotos()
@@ -145,7 +145,6 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-        //print("fetchedResultsController.object = \(fetchedResultsController.object)")
         let photoForCell = fetchedResultsController.object(at: indexPath)
         // Set the image
         cell.imageView.image = UIImage(data: photoForCell.image!)
