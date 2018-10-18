@@ -19,7 +19,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: Vars/Lets
     var pins: [Pin] = []
-    let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
     var dataController: DataController!
     
@@ -28,12 +27,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         activityIndicatorMap.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorMap.startAnimating()
-        centerMapOnLocation(location: pinLocation, map: mapView, size: 2350000)
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             pins = result
         }
         addPinsToMap()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        centerMapOnLocation(location: GlobalVariables.LocationCoordinate, map: mapView, size: 2350000)
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {

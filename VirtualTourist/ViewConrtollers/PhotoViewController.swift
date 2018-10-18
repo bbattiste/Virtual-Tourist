@@ -43,8 +43,15 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         self.createAnnotation()
         
         
-        //TODO: if new location, download Json, call completion handler to figure out how many cells, activity indicators, photos... otherwise displays saved photos
-        //self.client.getPhotos()
+        //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
+        
+        pullSavedPhotos()
+        if selectedPhotoPin.photos?.count == 0 {
+            print("selectedPhotoPin.photos?.count = no photos")
+        } else{
+            print("selectedPhotoPin.photos?.count = \(selectedPhotoPin.photos?.count)")
+        }
+        
         
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
@@ -72,21 +79,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
                     
                 }
                 
-                // Fetch Photos using fetchedRequest and fetchController
-                let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-                let predicate = NSPredicate(format: "pin == %@", self.selectedPhotoPin)
-                fetchRequest.predicate = predicate
-                //fetchedResultsController needs sorting to work properly
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-                self.fetchedResultsController.delegate = self
-                do {
-                    try self.fetchedResultsController.performFetch()
-                    print("fetchPerformed")
-                } catch {
-                    fatalError("The fetch could not be performed: \(error.localizedDescription)")
-                }
+                self.pullSavedPhotos()
                 
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
@@ -108,7 +101,27 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         fetchedResultsController = nil
         GlobalVariables.globalURLArray = []
     }
-
+    
+    // Fetch Photos using fetchedRequest and fetchController
+    func pullSavedPhotos() {
+        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+        let predicate = NSPredicate(format: "pin == %@", self.selectedPhotoPin)
+        fetchRequest.predicate = predicate
+        
+        //fetchedResultsController needs sorting to work properly
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchedResultsController.delegate = self
+        do {
+            try self.fetchedResultsController.performFetch()
+            print("fetchPerformed")
+        } catch {
+            fatalError("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
+    
+    
     func createAnnotation() {
         let pin = PinObject(coordinate: pinLocation)
         pin.coordinate = pinLocation
@@ -120,8 +133,18 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
+    
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        if fetchedResultsController.sections?.count == nil {
+//            return 1
+//        } else {
+//            return fetchedResultsController.sections?.count ?? 1
+//        }
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return GlobalVariables.globalURLArray.count
+        //return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,16 +152,21 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         //print("fetchedResultsController.object = \(fetchedResultsController.object)")
         let photoForCell = fetchedResultsController.object(at: indexPath)
-        print(photoForCell)
         // Set the image
         cell.imageView.image = UIImage(data: photoForCell.image!)
 
         return cell
     }
     
-    // TODO: Delete photos: lesson 4.8
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {
-      //TODO: Tapping the image removes it from the photo album, the booth in the collection view, and Core Data.
-
-        }
+        let photoToDelete = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(photoToDelete)
+        try? self.dataController.viewContext.save()
+    }
+    
+    func deletePhotoData(at indexPath: IndexPath) {
+        let photoToDelete = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(photoToDelete)
+        try? dataController.viewContext.save()
+    }
 }
