@@ -120,7 +120,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A7N-kJ-sDI">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="world" translatesAutoresizingMaskIntoConstraints="NO" id="A7N-kJ-sDI">
                                                     <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                                                 </imageView>
                                             </subviews>
@@ -202,4 +202,7 @@
             <point key="canvasLocation" x="1509.5999999999999" y="115.59220389805098"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="world" width="62" height="61"/>
+    </resources>
 </document>
