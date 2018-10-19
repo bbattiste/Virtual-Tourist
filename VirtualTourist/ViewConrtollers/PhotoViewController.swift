@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 import CoreData
 
-class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
+class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorPhoto: UIActivityIndicatorView!
@@ -46,41 +46,35 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
         
         pullSavedPhotos()
-        if let isSavedPhotos = fetchedResultsController.sections {
-            print("Has Saved photos to use")
-            print(isSavedPhotos.count)
-            print(fetchedResultsController.sections as Any)
-        } else{
-            print("is not any saved photos")
-        }
+        print(selectedPhotoPin.photos?.count as Any)
         
         
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
-                
+
                 performUIUpdatesOnMain {
                     self.missingImagesLabel.isHidden = true
                 }
                 GlobalVariables.globalURLArray = uRLResultLevel1
-                
+
                 // Check for images to make missingImagesLabel visible or hidden
-                
-                
+
+
                 // save imageUrlStrings from array
                 for uRLString in uRLResultLevel1 {
                     let photo = Photo(context: self.dataController.viewContext)
                     photo.uRL = uRLString
-                    
+
                     let imageURL = URL(string: uRLString)
                     let imageAsData = try? Data(contentsOf: imageURL!)
                     photo.image = imageAsData
-                    
+
                     self.selectedPhotoPin.addToPhotos(photo)
                     try? self.dataController.viewContext.save()
                 }
-                
+
                 self.pullSavedPhotos()
-                
+
                 performUIUpdatesOnMain {
                     self.photoCollectionView.reloadData()
                     self.activityIndicatorPhoto.stopAnimating()
@@ -111,7 +105,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate, NSFetchedResults
         //fetchedResultsController needs sorting to work properly
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: "photos")
         self.fetchedResultsController.delegate = self
         do {
             try self.fetchedResultsController.performFetch()
@@ -165,3 +159,42 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         try? dataController.viewContext.save()
     }
 }
+
+extension PhotoViewController: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            photoCollectionView.insertItems(at: [newIndexPath!])
+            break
+        case .delete:
+            photoCollectionView.deleteItems(at: [indexPath!])
+            break
+        case .update:
+            photoCollectionView.reloadItems(at: [indexPath!])
+            break
+        case .move:
+            photoCollectionView.moveItem(at: indexPath!, to: newIndexPath!)
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        let indexSet = IndexSet(integer: sectionIndex)
+        switch type {
+        case .insert: photoCollectionView.insertSections(indexSet)
+        case .delete: photoCollectionView.deleteSections(indexSet)
+        case .update, .move:
+            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        photoCollectionView.reloadData()
+    }
+
+    
+}
+
