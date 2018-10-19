@@ -51,7 +51,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
-
+                
+                self.deleteSavedPhotos()
                 performUIUpdatesOnMain {
                     self.missingImagesLabel.isHidden = true
                 }
@@ -115,6 +116,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func deleteSavedPhotos() {
+        for photo in fetchedResultsController.fetchedObjects! {
+            dataController.viewContext.delete(photo)
+            try? dataController.viewContext.save()
+        }
+        print("photos deleted")
+    }
     
     func createAnnotation() {
         let pin = PinObject(coordinate: pinLocation)
@@ -142,6 +150,8 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let photoForCell = fetchedResultsController.object(at: indexPath)
         // Set the image
         cell.imageView.image = UIImage(data: photoForCell.image!)
+        let url = photoForCell.uRL!
+        print("url = \(url)")
 
         return cell
     }
