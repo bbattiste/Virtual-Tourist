@@ -36,6 +36,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Initial setup
+        print("selectedPhotoPin = \(selectedPhotoPin as Any)")
         missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorPhoto.startAnimating()
@@ -45,56 +46,63 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         
         //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
         
-        pullSavedPhotos()
-        print(selectedPhotoPin.photos?.count as Any)
-        
-        
-        client.getPhotos() { (success, uRLResultLevel1, error) in
-            if success {
-                
-                self.deleteSavedPhotos()
-                performUIUpdatesOnMain {
-                    self.missingImagesLabel.isHidden = true
-                }
-                GlobalVariables.globalURLArray = uRLResultLevel1
-
-                // Check for images to make missingImagesLabel visible or hidden
-
-
-                // save imageUrlStrings from array
-                for uRLString in uRLResultLevel1 {
-                    let photo = Photo(context: self.dataController.viewContext)
-                    photo.uRL = uRLString
-
-                    let imageURL = URL(string: uRLString)
-                    let imageAsData = try? Data(contentsOf: imageURL!)
-                    photo.image = imageAsData
-
-                    self.selectedPhotoPin.addToPhotos(photo)
-                    try? self.dataController.viewContext.save()
-                }
-
-                self.pullSavedPhotos()
-
-                performUIUpdatesOnMain {
-                    self.photoCollectionView.reloadData()
-                    self.activityIndicatorPhoto.stopAnimating()
-                    //self.activityIndicatorMap.stopAnimating()
-                }
-            } else {
-                performUIUpdatesOnMain {
-                    print(error!)
-                    self.activityIndicatorPhoto.stopAnimating()
-                    self.missingImagesLabel.isHidden = false
-                }
-            }
-        }
+        print(selectedPhotoPin as Any)
+        checkIfPhotos()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
         GlobalVariables.globalURLArray = []
+    }
+    
+    // if saved photos fetch them, else get them from client
+    func checkIfPhotos() {
+        if selectedPhotoPin.photos?.count == 0 {
+            pullSavedPhotos()
+            return
+        } else {
+            client.getPhotos() { (success, uRLResultLevel1, error) in
+                if success {
+                    
+                    performUIUpdatesOnMain {
+                        self.missingImagesLabel.isHidden = true
+                    }
+                    GlobalVariables.globalURLArray = uRLResultLevel1
+                    
+                    // Check for images to make missingImagesLabel visible or hidden
+                    
+                    
+                    // save imageUrlStrings from array
+                    for uRLString in uRLResultLevel1 {
+                        let photo = Photo(context: self.dataController.viewContext)
+                        photo.uRL = uRLString
+                        
+                        let imageURL = URL(string: uRLString)
+                        let imageAsData = try? Data(contentsOf: imageURL!)
+                        photo.image = imageAsData
+                        
+                        self.selectedPhotoPin.addToPhotos(photo)
+                        try? self.dataController.viewContext.save()
+                    }
+                    
+                    self.pullSavedPhotos()
+                    
+                    performUIUpdatesOnMain {
+                        self.photoCollectionView.reloadData()
+                        self.activityIndicatorPhoto.stopAnimating()
+                        //self.activityIndicatorMap.stopAnimating()
+                    }
+                } else {
+                    performUIUpdatesOnMain {
+                        print(error!)
+                        self.activityIndicatorPhoto.stopAnimating()
+                        self.missingImagesLabel.isHidden = false
+                    }
+                }
+            }
+            return
+        }
     }
     
     // Fetch Photos using fetchedRequest and fetchController

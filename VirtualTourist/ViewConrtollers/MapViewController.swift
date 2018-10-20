@@ -82,12 +82,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
         // pass vars/lets to destination photoViewController
-        let selectedMapPin = Pin(context: dataController.viewContext)
-        selectedMapPin.latitude = didSelect.annotation!.coordinate.latitude
-        selectedMapPin.latitude = didSelect.annotation!.coordinate.longitude
-        print(selectedMapPin)
+        let selectedMapPin = didSelect.annotation as! PinObject
+        print("selectedMapPin = \(selectedMapPin)")
+        let photoPin = selectedMapPin.pinData
+        print("selectedMapPin.pinData = \(String(describing: selectedMapPin.pinData))")
+        print("photoPin = \(String(describing: photoPin))")
+        photoPin?.latitude = didSelect.annotation!.coordinate.latitude
+        photoPin?.longitude = didSelect.annotation!.coordinate.longitude
         
-        goToPhotoViewController.selectedPhotoPin = selectedMapPin
+        goToPhotoViewController.selectedPhotoPin = photoPin
         goToPhotoViewController.dataController = self.dataController
         
         // Pass the created instance to navigation stack
