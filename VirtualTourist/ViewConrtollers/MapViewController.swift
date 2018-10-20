@@ -21,7 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var pins: [Pin] = []
     let client = FlickrClient()
     var dataController: DataController!
-    var emptyPin: Pin = PinObject(pinData: .latitude,: 0, .longitude: 0 )
+    var emptyPin: Pin
         
     // MARK: Life cycle
     override func viewDidLoad() {
