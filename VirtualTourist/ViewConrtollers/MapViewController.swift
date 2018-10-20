@@ -21,7 +21,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var pins: [Pin] = []
     let client = FlickrClient()
     var dataController: DataController!
-    
+    var emptyPin: Pin = PinObject(pinData: .latitude,: 0, .longitude: 0 )
+        
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +53,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             
             // Create Annotation
-            let pinAnnotation = PinObject(coordinate: newCoordinate)
+            let pinAnnotation = PinObject(pinData: emptyPin, coordinate: newCoordinate)
             self.mapView.addAnnotation(pinAnnotation)
             print("placed pin")
             
+            //TODO: init of pinObject needs either some sort of empty pin var at top to be initialized itself, or have a way to initialize just the Pin type, or maybe even both
+            
+            
             // Save pin data
-            let pin = Pin(context: dataController.viewContext)
-            pin.latitude = newCoordinate.latitude
-            pin.longitude = newCoordinate.longitude
+            pinAnnotation.pinData = Pin(context: dataController.viewContext)
+            pinAnnotation.pinData.latitude = newCoordinate.latitude
+            pinAnnotation.pinData.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
             print("Saved location to CoreData")
         }
@@ -67,7 +71,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func addPinsToMap() {
         for pin in pins {
-            let pinAnnotation = PinObject(coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
+            let pinAnnotation = PinObject(pinData: pin, coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
             self.mapView.addAnnotation(pinAnnotation)
         }
     }
@@ -81,16 +85,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController
         
-        // pass vars/lets to destination photoViewController
-        let selectedMapPin = didSelect.annotation as! PinObject
-        print("selectedMapPin = \(selectedMapPin)")
-        let photoPin = selectedMapPin.pinData
-        print("selectedMapPin.pinData = \(String(describing: selectedMapPin.pinData))")
-        print("photoPin = \(String(describing: photoPin))")
-        photoPin?.latitude = didSelect.annotation!.coordinate.latitude
-        photoPin?.longitude = didSelect.annotation!.coordinate.longitude
+        guard let annotation = didSelect.annotation as? PinObject else {
+            fatalError("Incorrect Annotation Object")
+        }
         
-        goToPhotoViewController.selectedPhotoPin = photoPin
+        // pass vars/lets to destination photoViewController
+        let selectedMapPin = annotation.pinData
+        print("selectedMapPin = \(selectedMapPin)")
+        print("selectedMapPin.latitude = \(String(describing: selectedMapPin.latitude))")
+        print("selectedMapPin.longitude = \(String(describing: selectedMapPin.longitude))")
+        
+        goToPhotoViewController.selectedPhotoPin = selectedMapPin
         goToPhotoViewController.dataController = self.dataController
         
         // Pass the created instance to navigation stack

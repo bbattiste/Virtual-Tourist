@@ -45,7 +45,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         
         
         //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
-        
+        pullSavedPhotos()
         print(selectedPhotoPin as Any)
         checkIfPhotos()
     }
@@ -59,7 +59,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     // if saved photos fetch them, else get them from client
     func checkIfPhotos() {
         if selectedPhotoPin.photos?.count == 0 {
-            pullSavedPhotos()
             return
         } else {
             client.getPhotos() { (success, uRLResultLevel1, error) in
@@ -133,7 +132,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     func createAnnotation() {
-        let pin = PinObject(coordinate: pinLocation)
+        let pin = PinObject(pinData: selectedPhotoPin, coordinate: pinLocation)
         pin.coordinate = pinLocation
         self.mapView.addAnnotation(pin)
     }
