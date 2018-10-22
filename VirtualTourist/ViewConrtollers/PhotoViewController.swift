@@ -43,8 +43,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
         self.createAnnotation()
         
-        
-        //TODO: displays saved photos, otherwise download Json, call completion handler to figure out how many cells, activity indicators, photos...
         pullSavedPhotos()
         print("selectedPhotoPin = \(selectedPhotoPin as Any)")
         print("selectedPhotoPin.photos?.count = \(String(describing: selectedPhotoPin.photos?.count))")
@@ -58,50 +56,57 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     // MARK: Actions
+    @IBAction func getNewCollection(_ sender: Any) {
+        deleteSavedPhotos()
+        getphotosFromClient()
+    }
     
-    
+    // MARK: Functions
     
     // if saved photos proceed, else get them from client
     func checkIfPhotos() {
         if selectedPhotoPin.photos?.count != 0 {
-            self.photoCollectionView.reloadData()
             self.activityIndicatorPhoto.stopAnimating()
             return
         } else {
-            client.getPhotos() { (success, uRLResultLevel1, error) in
-                if success {
+            getphotosFromClient()
+        }
+    }
+    
+    func getphotosFromClient() {
+        
+        client.getPhotos() { (success, uRLResultLevel1, error) in
+            if success {
+                
+                performUIUpdatesOnMain {
+                    self.missingImagesLabel.isHidden = true
+                }
+                GlobalVariables.globalURLArray = uRLResultLevel1
+                
+                // save imageUrlStrings from array
+                for uRLString in uRLResultLevel1 {
+                    let photo = Photo(context: self.dataController.viewContext)
+                    photo.uRL = uRLString
                     
-                    performUIUpdatesOnMain {
-                        self.missingImagesLabel.isHidden = true
-                    }
-                    GlobalVariables.globalURLArray = uRLResultLevel1
+                    let imageURL = URL(string: uRLString)
+                    let imageAsData = try? Data(contentsOf: imageURL!)
+                    photo.image = imageAsData
                     
-                    // save imageUrlStrings from array
-                    for uRLString in uRLResultLevel1 {
-                        let photo = Photo(context: self.dataController.viewContext)
-                        photo.uRL = uRLString
-                        
-                        let imageURL = URL(string: uRLString)
-                        let imageAsData = try? Data(contentsOf: imageURL!)
-                        photo.image = imageAsData
-                        
-                        self.selectedPhotoPin.addToPhotos(photo)
-                        try? self.dataController.viewContext.save()
-                    }
-                    
-                    performUIUpdatesOnMain {
-                        self.photoCollectionView.reloadData()
-                        self.activityIndicatorPhoto.stopAnimating()
-                    }
-                } else {
-                    performUIUpdatesOnMain {
-                        print(error!)
-                        self.activityIndicatorPhoto.stopAnimating()
-                        self.missingImagesLabel.isHidden = false
-                    }
+                    self.selectedPhotoPin.addToPhotos(photo)
+                    try? self.dataController.viewContext.save()
+                }
+                
+                performUIUpdatesOnMain {
+                    self.activityIndicatorPhoto.stopAnimating()
+                }
+                return
+            } else {
+                performUIUpdatesOnMain {
+                    print(error!)
+                    self.activityIndicatorPhoto.stopAnimating()
+                    self.missingImagesLabel.isHidden = false
                 }
             }
-            return
         }
     }
     
@@ -127,7 +132,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     func deleteSavedPhotos() {
         for photo in fetchedResultsController.fetchedObjects! {
             dataController.viewContext.delete(photo)
-            try? dataController.viewContext.save()
+            //try? dataController.viewContext.save()
         }
         print("photos deleted")
     }
@@ -145,11 +150,11 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return fetchedResultsController.sections?.count ?? 1
+        return fetchedResultsController.sections?.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -215,7 +220,6 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        photoCollectionView.reloadData()
     }
 
     

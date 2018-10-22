@@ -159,6 +159,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaE-EO-vdQ">
                                 <rect key="frame" x="0.0" y="612" width="375" height="55"/>
                                 <state key="normal" title="New Collection of Photos"/>
+                                <connections>
+                                    <action selector="getNewCollection:" destination="JS1-ik-Dby" eventType="touchUpInside" id="ftf-O9-Mna"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No Photos Found. Search Again." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="II9-D9-r2y">
                                 <rect key="frame" x="0.0" y="258" width="375" height="346"/>
