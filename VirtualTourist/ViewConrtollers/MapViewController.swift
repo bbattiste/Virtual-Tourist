@@ -85,9 +85,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // pass vars/lets to destination photoViewController
         let selectedMapPin = annotation.pinData
-        print("selectedMapPin = \(selectedMapPin)")
-        print("selectedMapPin.latitude = \(String(describing: selectedMapPin.latitude))")
-        print("selectedMapPin.longitude = \(String(describing: selectedMapPin.longitude))")
         
         goToPhotoViewController.selectedPhotoPin = selectedMapPin
         goToPhotoViewController.dataController = self.dataController
