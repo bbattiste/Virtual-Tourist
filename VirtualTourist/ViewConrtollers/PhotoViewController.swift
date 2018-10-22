@@ -155,12 +155,17 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
-        let photoForCell = fetchedResultsController.object(at: indexPath)
+        cell.activityIndicatorCollectionViewCell.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        cell.activityIndicatorCollectionViewCell.startAnimating()
+        
+        
         // Set the image
+        let photoForCell = fetchedResultsController.object(at: indexPath)
         cell.imageView.image = UIImage(data: photoForCell.image!)
         let url = photoForCell.uRL!
         print("url = \(url)")
-
+        
+        cell.activityIndicatorCollectionViewCell.stopAnimating()
         return cell
     }
     
