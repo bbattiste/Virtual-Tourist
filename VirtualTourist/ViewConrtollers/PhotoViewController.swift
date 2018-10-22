@@ -20,13 +20,10 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var missingImagesLabel: UILabel!
     
-    
-    //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
-    
     // MARK: Vars/Lets
     let pinLocation = GlobalVariables.LocationCoordinate
     let client = FlickrClient()
-    var photos = GlobalVariables.globalPhotosArray
+    //var photos = GlobalVariables.globalPhotosArray
     var dataController: DataController!
     var selectedPhotoPin: Pin!
     var fetchedResultsController:NSFetchedResultsController<Photo>!
@@ -36,7 +33,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Initial setup
-        print("selectedPhotoPin = \(selectedPhotoPin as Any)")
         missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorPhoto.startAnimating()
@@ -44,17 +40,16 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         self.createAnnotation()
         
         pullSavedPhotos()
-        print("selectedPhotoPin = \(selectedPhotoPin as Any)")
-        print("selectedPhotoPin.photos?.count = \(String(describing: selectedPhotoPin.photos?.count))")
         checkIfPhotos()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
-        GlobalVariables.globalURLArray = []
+        //GlobalVariables.globalURLArray = []
     }
     
+    //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
     // MARK: Actions
     @IBAction func getNewCollection(_ sender: Any) {
         deleteSavedPhotos()
@@ -74,14 +69,13 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     func getphotosFromClient() {
-        
         client.getPhotos() { (success, uRLResultLevel1, error) in
             if success {
                 
                 performUIUpdatesOnMain {
                     self.missingImagesLabel.isHidden = true
                 }
-                GlobalVariables.globalURLArray = uRLResultLevel1
+                //GlobalVariables.globalURLArray = uRLResultLevel1
                 
                 // save imageUrlStrings from array
                 for uRLString in uRLResultLevel1 {
@@ -119,7 +113,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         //fetchedResultsController needs sorting to work properly
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: "photos")
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         self.fetchedResultsController.delegate = self
         do {
             try self.fetchedResultsController.performFetch()
