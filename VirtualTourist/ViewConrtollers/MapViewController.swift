@@ -56,12 +56,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pinToSave.latitude = newCoordinate.latitude
             pinToSave.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
-            print("Saved location to CoreData")
             
             // Create Annotation
             let pinAnnotation = PinObject(pinData: pinToSave, coordinate: newCoordinate)
             self.mapView.addAnnotation(pinAnnotation)
-            print("placed pin")
         }
     }
     
