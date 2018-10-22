@@ -19,9 +19,3 @@ class PinObject: NSObject, MKAnnotation {
         self.pinData = pinData
     }
 }
-
-//public var coordinate: CLLocationCoordinate2D {
-//    let latDegrees = CLLocationDegrees(latitude)
-//    let longDegrees = CLLocationDegrees(longitude)
-//    return CLLocationCoordinate2D(latitude: latDegrees, longitude: longDegrees)
-//}

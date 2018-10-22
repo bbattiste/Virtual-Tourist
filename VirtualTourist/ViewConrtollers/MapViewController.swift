@@ -21,8 +21,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var pins: [Pin] = []
     let client = FlickrClient()
     var dataController: DataController!
-    var emptyPin: Pin
-        
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,20 +51,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             
-            // Create Annotation
-            let pinAnnotation = PinObject(pinData: emptyPin, coordinate: newCoordinate)
-            self.mapView.addAnnotation(pinAnnotation)
-            print("placed pin")
-            
-            //TODO: init of pinObject needs either some sort of empty pin var at top to be initialized itself, or have a way to initialize just the Pin type, or maybe even both
-            
-            
             // Save pin data
-            pinAnnotation.pinData = Pin(context: dataController.viewContext)
-            pinAnnotation.pinData.latitude = newCoordinate.latitude
-            pinAnnotation.pinData.longitude = newCoordinate.longitude
+            let pinToSave = Pin(context: dataController.viewContext)
+            pinToSave.latitude = newCoordinate.latitude
+            pinToSave.longitude = newCoordinate.longitude
             try? dataController.viewContext.save()
             print("Saved location to CoreData")
+            
+            // Create Annotation
+            let pinAnnotation = PinObject(pinData: pinToSave, coordinate: newCoordinate)
+            self.mapView.addAnnotation(pinAnnotation)
+            print("placed pin")
         }
     }
     
