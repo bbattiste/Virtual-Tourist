@@ -36,7 +36,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         // Initial setup
         missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        view.bringSubview(toFront: activityIndicatorPhoto)
         activityIndicatorPhoto.startAnimating()
         
         // Center map and create pin
@@ -128,11 +127,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     func deleteSavedPhotos() {
-//        for cell in photoCollectionView.visibleCells {
-//            if let cell = cell as? PhotoCollectionViewCell {
-//                cell.activityIndicatorCollectionViewCell.startAnimating()
-//            }
-//        }
+        activityIndicatorPhoto.startAnimating()
+        //        for cell in photoCollectionView.visibleCells {
+        //            if let cell = cell as? PhotoCollectionViewCell {
+        //                cell.activityIndicatorCollectionViewCell.startAnimating()
+        //            }
+        //        }
         
         if let photosToDelete = fetchedResultsController.fetchedObjects {
             for photo in photosToDelete {
