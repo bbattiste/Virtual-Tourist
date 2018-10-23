@@ -127,13 +127,18 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
     
     func deleteSavedPhotos() {
-        for photo in fetchedResultsController.fetchedObjects! {
-            dataController.viewContext.delete(photo)
-            //try? dataController.viewContext.save()
+        if let photosToDelete = fetchedResultsController.fetchedObjects {
+            for photo in photosToDelete {
+                dataController.viewContext.delete(photo)
+                do {
+                    try dataController.viewContext.save()
+                } catch {
+                    print("Will Not Delete")
+                }
+            }
         }
-        print("photos deleted")
     }
-    
+        
     func createAnnotation() {
         let pin = PinObject(pinData: selectedPhotoPin, coordinate: pinLocation)
         pin.coordinate = pinLocation
@@ -164,9 +169,6 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         // Set the image
         let photoForCell = fetchedResultsController.object(at: indexPath)
         cell.imageView.image = UIImage(data: photoForCell.image!)
-        let url = photoForCell.uRL!
-        print("url = \(url)")
-        
         cell.activityIndicatorCollectionViewCell.stopAnimating()
         return cell
     }
