@@ -13,6 +13,7 @@ import CoreData
 
 class PhotoViewController: UIViewController, MKMapViewDelegate {
     
+    // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorPhoto: UIActivityIndicatorView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
@@ -21,14 +22,14 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var missingImagesLabel: UILabel!
     
     // MARK: Vars/Lets
-    let pinLocation = GlobalVariables.LocationCoordinate
+    let pinLocation = CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude"))
     let client = FlickrClient()
-    //var photos = GlobalVariables.globalPhotosArray
     var dataController: DataController!
     var selectedPhotoPin: Pin!
     var fetchedResultsController:NSFetchedResultsController<Photo>!
     var indexOfCollectionView = 0
     
+    // MARK: LIfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,9 +37,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorPhoto.startAnimating()
-        centerMapOnLocation(location: self.pinLocation, map: self.mapView, size: 50000)
-        self.createAnnotation()
         
+        // Center map and create pin
+        centerMapOnLocation(location: pinLocation, map: mapView, size: 50000)
+        createAnnotation()
+        
+        // Fetch, Check if saved Photos, else get from client
         pullSavedPhotos()
         checkIfPhotos()
     }
@@ -46,7 +50,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
-        //GlobalVariables.globalURLArray = []
     }
     
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
@@ -55,15 +58,16 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         deleteSavedPhotos()
         getphotosFromClient()
     }
-    
+
     // MARK: Functions
     
     // if saved photos proceed, else get them from client
     func checkIfPhotos() {
         if selectedPhotoPin.photos?.count != 0 {
-            self.activityIndicatorPhoto.stopAnimating()
-            return
+            activityIndicatorPhoto.stopAnimating()
+            print("test 1")
         } else {
+            print("test 2")
             getphotosFromClient()
         }
     }
@@ -75,7 +79,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                 performUIUpdatesOnMain {
                     self.missingImagesLabel.isHidden = true
                 }
-                //GlobalVariables.globalURLArray = uRLResultLevel1
                 
                 // save imageUrlStrings from array
                 for uRLString in uRLResultLevel1 {

@@ -34,17 +34,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         addPinsToMap()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        centerMapOnLocation(location: CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude")), map: mapView, size: 2350000)
-        print(GlobalVariables.LocationCoordinate)
-    }
-    
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         self.activityIndicatorMap.stopAnimating()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        centerMapOnLocation(location: CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude")), map: mapView, size: 2350000)
+    }
+    
     // MARK: Actions
+    
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
             
@@ -62,24 +62,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let pinAnnotation = PinObject(pinData: pinToSave, coordinate: newCoordinate)
             self.mapView.addAnnotation(pinAnnotation)
             
+            // Save coordinates of pin tapped for UserDefault
             UserDefaults.standard.set(newCoordinate.latitude, forKey: "InitialLatitude")
             UserDefaults.standard.set(newCoordinate.longitude, forKey: "InitialLongitude")
             UserDefaults.standard.synchronize()
         }
     }
     
-    func addPinsToMap() {
-        for pin in pins {
-            let pinAnnotation = PinObject(pinData: pin, coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
-            self.mapView.addAnnotation(pinAnnotation)
-        }
-    }
-    
     // push PhotoViewController when pin tapped
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {
         
-        // Grab coordinates of pin tapped
-        GlobalVariables.LocationCoordinate = didSelect.annotation!.coordinate
+        // Save coordinates of pin tapped for UserDefault
         UserDefaults.standard.set(didSelect.annotation!.coordinate.latitude, forKey: "InitialLatitude")
         UserDefaults.standard.set(didSelect.annotation!.coordinate.longitude, forKey: "InitialLongitude")
         UserDefaults.standard.synchronize()
@@ -101,7 +94,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         navigationController?.pushViewController(goToPhotoViewController, animated: true)
     }
     
-    // This changes changes the view of the pin and mediaURL
+    // For every pin in Pinarray, set annotation to map
+    func addPinsToMap() {
+        for pin in pins {
+            let pinAnnotation = PinObject(pinData: pin, coordinate: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude))
+            self.mapView.addAnnotation(pinAnnotation)
+        }
+    }
+    
+    // This changes changes the view of the pin
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
