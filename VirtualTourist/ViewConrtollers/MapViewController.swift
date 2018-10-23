@@ -36,7 +36,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        centerMapOnLocation(location: GlobalVariables.LocationCoordinate, map: mapView, size: 2350000)
+        centerMapOnLocation(location: CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude")), map: mapView, size: 2350000)
+        print(GlobalVariables.LocationCoordinate)
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -60,6 +61,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             // Create Annotation
             let pinAnnotation = PinObject(pinData: pinToSave, coordinate: newCoordinate)
             self.mapView.addAnnotation(pinAnnotation)
+            
+            UserDefaults.standard.set(newCoordinate.latitude, forKey: "InitialLatitude")
+            UserDefaults.standard.set(newCoordinate.longitude, forKey: "InitialLongitude")
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -75,6 +80,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // Grab coordinates of pin tapped
         GlobalVariables.LocationCoordinate = didSelect.annotation!.coordinate
+        UserDefaults.standard.set(didSelect.annotation!.coordinate.latitude, forKey: "InitialLatitude")
+        UserDefaults.standard.set(didSelect.annotation!.coordinate.longitude, forKey: "InitialLongitude")
+        UserDefaults.standard.synchronize()
         
         // Create a instance of Destination photoViewController
         let goToPhotoViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoViewControllerStoryBoard") as! PhotoViewController

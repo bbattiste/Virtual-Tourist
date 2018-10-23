@@ -12,9 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
     let dataController = DataController(modelName: "VirtualTourist")
-
+    
+    func checkFirstLaunch() {
+        if(UserDefaults.standard.bool(forKey: "hasLaunchedBefore")) {
+            print("App has launched before")
+        } else {
+            print("First Launch!")
+            UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+            UserDefaults.standard.set(37.0902, forKey: "InitialLatitude")
+            UserDefaults.standard.set(-95.7129, forKey: "InitialLongitude")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        checkFirstLaunch()
+        return true
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         dataController.load()
