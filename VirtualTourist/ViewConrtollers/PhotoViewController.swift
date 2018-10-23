@@ -153,9 +153,11 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     }
 }
 
+//------------------------------------------------------------------------------
+// MARK: UICollectionView dataSource, delegate
+
 extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    // MARK: Collection View Data Source
     //TODO: Place holder images until photos are downloaded, displayed as soon as possible
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -190,6 +192,9 @@ extension PhotoViewController: UICollectionViewDataSource, UICollectionViewDeleg
         try? dataController.viewContext.save()
     }
 }
+
+//------------------------------------------------------------------------------
+// MARK: NSFetchedResultsControllerDelegate
 
 extension PhotoViewController: NSFetchedResultsControllerDelegate {
     
