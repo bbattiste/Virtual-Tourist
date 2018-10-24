@@ -56,7 +56,6 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
     // MARK: Actions
     @IBAction func getNewCollection(_ sender: Any) {
-        self.newCollectionButton.isEnabled = false
         deleteSavedPhotos()
         getphotosFromClient()
     }
@@ -67,7 +66,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     func checkIfPhotos() {
         if selectedPhotoPin.photos?.count != 0 {
             activityIndicatorPhoto.stopAnimating()
-            self.newCollectionButton.isEnabled = true
+            newCollectionButton.isEnabled = true
         } else {
             getphotosFromClient()
         }
@@ -79,6 +78,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                 
                 performUIUpdatesOnMain {
                     self.missingImagesLabel.isHidden = true
+                    self.newCollectionButton.isEnabled = false
+                    self.photoCollectionView.isScrollEnabled = false
                 }
                 
                 // save imageUrlStrings from array
@@ -97,12 +98,14 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                 performUIUpdatesOnMain {
                     self.activityIndicatorPhoto.stopAnimating()
                     self.newCollectionButton.isEnabled = true
+                    self.photoCollectionView.isScrollEnabled = true
                 }
             } else {
                 performUIUpdatesOnMain {
                     print(error!)
                     self.activityIndicatorPhoto.stopAnimating()
                     self.missingImagesLabel.isHidden = false
+                    self.photoCollectionView.isScrollEnabled = true
                 }
             }
         }
