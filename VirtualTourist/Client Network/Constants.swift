@@ -21,7 +21,7 @@ struct Constants {
         
         static let SearchBBoxHalfWidth = 1.0
         static let SearchBBoxHalfHeight = 1.0
-        static let SearchLatRange = (-90.0, 90.0)
+        static let SearchLatRange = (-80.0, 80.0)
         static let SearchLonRange = (-180.0, 180.0)
     }
     
