@@ -12,7 +12,6 @@ import CoreData
 
 class FlickrClient {
     
-    let pinLocation = GlobalVariables.LocationCoordinate
     var dataController: DataController!
     
     // MARK: Network to get photos from Flickr
@@ -42,8 +41,8 @@ class FlickrClient {
     
     private func bboxString() -> String {
         // ensure bbox is bounded by minimum and maximums, has max and mins if wanting to add enter in own coordinates feature
-        let latitude = pinLocation.latitude
-        let longitude = pinLocation.longitude
+        let latitude = UserDefaults.standard.double(forKey: "InitialLatitude")
+        let longitude = UserDefaults.standard.double(forKey: "InitialLongitude")
         let minimumLon = max(longitude - Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.0)
         let minimumLat = max(latitude - Constants.Flickr.SearchBBoxHalfHeight, Constants.Flickr.SearchLatRange.0)
         let maximumLon = min(longitude + Constants.Flickr.SearchBBoxHalfWidth, Constants.Flickr.SearchLonRange.1)
