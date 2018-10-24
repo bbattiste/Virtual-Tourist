@@ -128,11 +128,12 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     
     func deleteSavedPhotos() {
         activityIndicatorPhoto.startAnimating()
-        //        for cell in photoCollectionView.visibleCells {
-        //            if let cell = cell as? PhotoCollectionViewCell {
-        //                cell.activityIndicatorCollectionViewCell.startAnimating()
-        //            }
-        //        }
+        for cell in photoCollectionView.visibleCells {
+            if let cell = cell as? PhotoCollectionViewCell {
+                cell.activityIndicatorCollectionViewCell.startAnimating()
+                cell.imageView.image = UIImage(named: "world")
+            }
+        }
         
         if let photosToDelete = fetchedResultsController.fetchedObjects {
             for photo in photosToDelete {
