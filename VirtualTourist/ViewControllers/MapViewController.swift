@@ -59,7 +59,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let touchPoint = gesture.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
             
-            print("newCoordinate.latitude = \(newCoordinate.latitude)")
+            // Guard from being too high/low on map that when recentering map, it won't crash
             guard (newCoordinate.latitude > Constants.Flickr.SearchLatRange.0) && (newCoordinate.latitude < Constants.Flickr.SearchLatRange.1) else {
                 print("Pin drop out of range")
                 return
