@@ -13,16 +13,22 @@ import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    // MARK: Outlets
+//------------------------------------------------------------------------------
+// MARK: Outlets
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorMap: UIActivityIndicatorView!
     
-    // MARK: Vars/Lets
+//------------------------------------------------------------------------------
+// MARK: Vars/Lets
+    
     var pins: [Pin] = []
     let client = FlickrClient()
     var dataController: DataController!
+
+//------------------------------------------------------------------------------
+// MARK: Life cycle
     
-    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicatorMap.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -34,16 +40,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         addPinsToMap()
     }
     
-    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-        self.activityIndicatorMap.stopAnimating()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         centerMapOnLocation(location: CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude")), map: mapView, size: 2350000)
     }
     
-    // MARK: Actions
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        self.activityIndicatorMap.stopAnimating()
+    }
+
+//------------------------------------------------------------------------------
+// MARK: Actions
     
     @IBAction func longPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == UIGestureRecognizerState.began {
@@ -68,6 +75,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             UserDefaults.standard.synchronize()
         }
     }
+    
+//------------------------------------------------------------------------------
+// MARK: Functions
     
     // push PhotoViewController when pin tapped
     func mapView(_ mapView: MKMapView, didSelect: MKAnnotationView) {

@@ -12,24 +12,30 @@ import MapKit
 import CoreData
 
 class PhotoViewController: UIViewController, MKMapViewDelegate {
+
+//------------------------------------------------------------------------------
+// MARK: Outlets
     
-    // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicatorPhoto: UIActivityIndicatorView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var missingImagesLabel: UILabel!
+
+//------------------------------------------------------------------------------
+// MARK: Vars/Lets
     
-    // MARK: Vars/Lets
     let pinLocation = CLLocationCoordinate2D(latitude: UserDefaults.standard.double(forKey: "InitialLatitude"), longitude: UserDefaults.standard.double(forKey: "InitialLongitude"))
     let client = FlickrClient()
     var dataController: DataController!
     var selectedPhotoPin: Pin!
     var fetchedResultsController:NSFetchedResultsController<Photo>!
     var indexOfCollectionView = 0
+
+//------------------------------------------------------------------------------
+// MARK: Lifecycle
     
-    // MARK: LIfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,15 +58,16 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         super.viewDidDisappear(animated)
         fetchedResultsController = nil
     }
-    
-    //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
-    // MARK: Actions
+
+//------------------------------------------------------------------------------
+// MARK: Actions
     @IBAction func getNewCollection(_ sender: Any) {
         deleteSavedPhotos()
         getphotosFromClient()
     }
 
-    // MARK: Functions
+//------------------------------------------------------------------------------
+// MARK: Functions
     
     // if saved photos proceed, else get them from client
     func checkIfPhotos() {
@@ -234,7 +241,6 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     }
-
     
 }
 
