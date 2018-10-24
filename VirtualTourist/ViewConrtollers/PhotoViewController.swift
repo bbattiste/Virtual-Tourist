@@ -37,6 +37,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
         missingImagesLabel.isHidden = true
         activityIndicatorPhoto.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         activityIndicatorPhoto.startAnimating()
+        self.newCollectionButton.isEnabled = false
         
         // Center map and create pin
         centerMapOnLocation(location: pinLocation, map: mapView, size: 50000)
@@ -55,6 +56,7 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     //TODO: button that initiates the download of a new album, replacing the images in the photo album with a new set from Flickr.
     // MARK: Actions
     @IBAction func getNewCollection(_ sender: Any) {
+        self.newCollectionButton.isEnabled = false
         deleteSavedPhotos()
         getphotosFromClient()
     }
@@ -65,9 +67,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
     func checkIfPhotos() {
         if selectedPhotoPin.photos?.count != 0 {
             activityIndicatorPhoto.stopAnimating()
-            print("test 1")
+            self.newCollectionButton.isEnabled = true
         } else {
-            print("test 2")
             getphotosFromClient()
         }
     }
@@ -95,8 +96,8 @@ class PhotoViewController: UIViewController, MKMapViewDelegate {
                 
                 performUIUpdatesOnMain {
                     self.activityIndicatorPhoto.stopAnimating()
+                    self.newCollectionButton.isEnabled = true
                 }
-                return
             } else {
                 performUIUpdatesOnMain {
                     print(error!)
